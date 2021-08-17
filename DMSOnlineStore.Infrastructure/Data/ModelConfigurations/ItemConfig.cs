@@ -20,9 +20,6 @@ namespace DMSOnlineStore.Infrastructure.Data.ModelConfigurations
             builder.HasIndex(d => d.Price)
                 .IsUnique();
 
-            builder.Property(d => d.IsActive)
-                .HasDefaultValue(true);
-       
             builder.Property(d => d.IsDeleted)
                 .HasDefaultValue(false);
 

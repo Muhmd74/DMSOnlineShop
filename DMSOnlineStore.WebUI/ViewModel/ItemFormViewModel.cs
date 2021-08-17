@@ -1,24 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace DMSOnlineStore.Core.Models
+namespace DMSOnlineStore.WebUI.ViewModel
 {
-   public class Item : BaseEntity
+    public class ItemFormViewModel
     {
+        [Required,StringLength(250)]
         public string Name { get; set; }
+        [ StringLength(250)]
         public string Description { get; set; }
         public DateTime Created { get; set; }
+        [Required]
         public int Quantity { get; set; }
+        [Required]
         public decimal Price { get; set; }
-        public float Discount { get; set; }
+        public float Discount { get; set; } 
         public decimal Vat { get; set; }
         public string ImageUrl { get; set; }
         public bool IsDeleted { get; set; }
+        [Display(Name = "UOM")]
         public Guid UnitOfMeasureId { get; set; }
-        public UnitOfMeasure UnitOfMeasure { get; set; }
-        public ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }
