@@ -21,8 +21,16 @@ namespace DMSOnlineStore.Infrastructure.Data.Tools
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-    
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.ApplyConfiguration(new OrderConfig());
+            modelBuilder.ApplyConfiguration(new OrderDetailConfig());
+
+            modelBuilder.ApplyConfiguration(new ItemConfig());
+            modelBuilder.ApplyConfiguration(new UnitOfMeasureConfig());
+
+            modelBuilder.ApplyConfiguration(new UserConfig());
+          //  modelBuilder.ApplyConfiguration(new BaseEntityConfig());
+
+            //modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(modelBuilder);
         }

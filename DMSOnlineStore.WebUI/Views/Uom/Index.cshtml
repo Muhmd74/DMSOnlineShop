@@ -1,0 +1,12 @@
+﻿@model IEnumerable<DMSOnlineStore.Core.Models.UnitOfMeasure>
+<div>
+
+
+    <ul>
+        @foreach (var uom in Model)
+        {
+            <li> @uom.Name</li>
+            <li>@uom.Description</li>
+        }
+    </ul>
+</div>

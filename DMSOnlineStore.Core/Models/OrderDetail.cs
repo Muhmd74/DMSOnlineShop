@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using DMSOnlineStore.Core.Interfaces;
 
 namespace DMSOnlineStore.Core.Models
 {
-   public class OrderDetail : BaseEntity
+   public class OrderDetail : BaseEntity , IAggregateRoot
     {
        public int Quantity { get; set; }
         public decimal Price { get; set; }

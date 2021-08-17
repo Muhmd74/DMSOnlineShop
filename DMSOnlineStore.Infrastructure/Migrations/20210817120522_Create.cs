@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DMSOnlineStore.Infrastructure.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Create : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +11,7 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                 name: "UnitOfMeasures",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "NEWID()"),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 50, nullable: false),
                     Description = table.Column<string>(maxLength: 100, nullable: true)
                 },
@@ -24,12 +24,13 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "NEWID()"),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 250, nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: false),
                     Password = table.Column<string>(nullable: false),
-                    Mobile = table.Column<string>(nullable: true)
+                    Mobile = table.Column<string>(nullable: true),
+                    IsAdmin = table.Column<bool>(nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -40,13 +41,15 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                 name: "Items",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "NEWID()"),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 250, nullable: false),
                     Description = table.Column<string>(maxLength: 250, nullable: true),
                     Created = table.Column<DateTime>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
+                    Discount = table.Column<float>(nullable: false),
                     Vat = table.Column<decimal>(nullable: false),
+                    ImageUrl = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
                     IsActive = table.Column<bool>(nullable: false, defaultValue: true),
                     UnitOfMeasureId = table.Column<Guid>(nullable: false)
@@ -65,7 +68,7 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "NEWID()"),
+                    Id = table.Column<Guid>(nullable: false),
                     OrderDate = table.Column<DateTime>(nullable: false),
                     RequestDate = table.Column<DateTime>(nullable: false),
                     DueDate = table.Column<DateTime>(nullable: false),
@@ -90,7 +93,7 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                 name: "OrderDetails",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "NEWID()"),
+                    Id = table.Column<Guid>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
                     UnitOfMeasureId = table.Column<Guid>(nullable: false),
@@ -116,6 +119,12 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                         principalTable: "UnitOfMeasures",
                         principalColumn: "Id");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Items_Price",
+                table: "Items",
+                column: "Price",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Items_UnitOfMeasureId",

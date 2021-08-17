@@ -1,4 +1,6 @@
 ﻿using System;
+using DMSOnlineStore.Core.Interfaces;
+using DMSOnlineStore.WebUI.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,7 +10,10 @@ namespace DMSOnlineStore.WebUI.Installer
     {
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {
-            throw new NotImplementedException();
+            services.AddScoped(typeof(IAsyncRepository<>), typeof(EfRepository<>));
+
+
+
         }
     }
 }

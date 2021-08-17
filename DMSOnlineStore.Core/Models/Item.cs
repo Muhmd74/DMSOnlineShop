@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using DMSOnlineStore.Core.Interfaces;
 
 namespace DMSOnlineStore.Core.Models
 {
-   public class Item : BaseEntity
+   public class Item : BaseEntity, IAggregateRoot
     {
         public string Name { get; set; }
         public string Description { get; set; }

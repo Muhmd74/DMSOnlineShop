@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DMSOnlineStore.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210817110447_CreateImageInItem")]
-    partial class CreateImageInItem
+    [Migration("20210817120522_Create")]
+    partial class Create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,27 +21,11 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DMSOnlineStore.Core.Models.BaseEntity", b =>
+            modelBuilder.Entity("DMSOnlineStore.Core.Models.Item", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BaseEntity");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("BaseEntity");
-                });
-
-            modelBuilder.Entity("DMSOnlineStore.Core.Models.Item", b =>
-                {
-                    b.HasBaseType("DMSOnlineStore.Core.Models.BaseEntity");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -83,21 +67,23 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                     b.Property<decimal>("Vat")
                         .HasColumnType("decimal(18,2)");
 
+                    b.HasKey("Id");
+
                     b.HasIndex("Price")
-                        .IsUnique()
-                        .HasFilter("[Price] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("UnitOfMeasureId");
 
-                    b.HasDiscriminator().HasValue("Item");
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("DMSOnlineStore.Core.Models.Order", b =>
                 {
-                    b.HasBaseType("DMSOnlineStore.Core.Models.BaseEntity");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Discount")
-                        .HasColumnName("Order_Discount")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("DueDate")
@@ -124,14 +110,18 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.HasKey("Id");
+
                     b.HasIndex("UserId");
 
-                    b.HasDiscriminator().HasValue("Order");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("DMSOnlineStore.Core.Models.OrderDetail", b =>
                 {
-                    b.HasBaseType("DMSOnlineStore.Core.Models.BaseEntity");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ItemId")
                         .HasColumnType("uniqueidentifier");
@@ -140,16 +130,15 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Price")
-                        .HasColumnName("OrderDetail_Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Quantity")
-                        .HasColumnName("OrderDetail_Quantity")
                         .HasColumnType("int");
 
                     b.Property<Guid>("UnitOfMeasureId")
-                        .HasColumnName("OrderDetail_UnitOfMeasureId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("ItemId");
 
@@ -157,37 +146,39 @@ namespace DMSOnlineStore.Infrastructure.Migrations
 
                     b.HasIndex("UnitOfMeasureId");
 
-                    b.HasDiscriminator().HasValue("OrderDetail");
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("DMSOnlineStore.Core.Models.UnitOfMeasure", b =>
                 {
-                    b.HasBaseType("DMSOnlineStore.Core.Models.BaseEntity");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .HasColumnName("UnitOfMeasure_Description")
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnName("UnitOfMeasure_Name")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[UnitOfMeasure_Name] IS NOT NULL");
+                    b.HasKey("Id");
 
-                    b.HasDiscriminator().HasValue("UnitOfMeasure");
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("UnitOfMeasures");
                 });
 
             modelBuilder.Entity("DMSOnlineStore.Core.Models.User", b =>
                 {
-                    b.HasBaseType("DMSOnlineStore.Core.Models.BaseEntity");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .HasColumnName("User_Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -204,7 +195,6 @@ namespace DMSOnlineStore.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnName("User_Name")
                         .HasColumnType("nvarchar(250)")
                         .HasMaxLength(250);
 
@@ -212,11 +202,12 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("Email")
-                        .IsUnique()
-                        .HasFilter("[Email] IS NOT NULL");
+                    b.HasKey("Id");
 
-                    b.HasDiscriminator().HasValue("User");
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("DMSOnlineStore.Core.Models.Item", b =>

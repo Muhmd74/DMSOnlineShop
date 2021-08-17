@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using DMSOnlineStore.Core.Enums;
+using DMSOnlineStore.Core.Interfaces;
 
 namespace DMSOnlineStore.Core.Models
 {
-   public class Order : BaseEntity
+   public class Order : BaseEntity , IAggregateRoot
     {
     
         public DateTime OrderDate { get; set; }
