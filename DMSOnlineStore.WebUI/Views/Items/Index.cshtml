@@ -15,10 +15,10 @@
 </a>
 
 <div style="margin-right: auto;display: inline-block">
-    @using (Html.BeginForm("Search", "Items"))
+    @using (Html.BeginForm("Index", "Items",FormMethod.Get))
     {
 
-        @Html.TextBox("search") <input type="submit" value="Search " />
+        @Html.TextBox("name") <input type="submit" value="Search " />
     }
 </div>
 <div class="mt-4">
@@ -44,47 +44,53 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
+               @if (!Model.Any())
+               {
+                   <div class="alert alert-warning" role="alert">
+                       No Item Found!
+                   </div>
+               }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
 
-                            @Html.ActionLink(item.Name, "Details", "Items"
-                                , new { id = item.Id })
-                        </td>
-                        <td>@item.Price</td>
-                        <td>@item.Quantity</td>
-                        <td>@item.Uom</td>
-                        <td>@item.Discount</td>
-                        <td>
-                            <a href="@Url.Action("Update","Items",new {id = item.Id})" class="btn btn-primary">
-                                <i class="bi bi-pencil-square" style="margin-right: 5px"></i>
+                        @Html.ActionLink(item.Name, "Details", "Items"
+                            , new { id = item.Id })
+                    </td>
+                    <td>@item.Price</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Uom</td>
+                    <td>@item.Discount</td>
+                    <td>
+                        <a href="@Url.Action("Update","Items",new {id = item.Id})" class="btn btn-primary">
+                            <i class="bi bi-pencil-square" style="margin-right: 5px"></i>
 
-                                Edit
+                            Edit
+                        </a>
+                        @if (item.IsDeleted)
+                        {
+                            <a href="@Url.Action("Delete", "Items", new {id = item.Id})" class="btn btn-success" style="margin-left: 4px">
+                                <i class="bi bi-skip-backward" style="margin-right: 5px"></i>
+                                Restore
                             </a>
-                            @if (item.IsDeleted)
-                            {
-                                <a href="@Url.Action("Delete", "Items", new {id = item.Id})" class="btn btn-success" style="margin-left: 4px">
-                                    <i class="bi bi-skip-backward" style="margin-right: 5px"></i>
-                                    Restore
-                                </a>
-                            }
-                            else
-                            {
+                        }
+                        else
+                        {
                                 @*<a href="javascript:;" class="btn btn-danger js-delete data-Id=@item.Id">
 
                                         Delete
                                     </a>*@
-                                <a href="@Url.Action("Delete", "Items", new {id = item.Id})" class="btn btn-danger">
-                                    <i class="bi bi-x" style="margin-right: 5px"></i>
+                            <a href="@Url.Action("Delete", "Items", new {id = item.Id})" class="btn btn-danger">
+                                <i class="bi bi-x" style="margin-right: 5px"></i>
 
-                                    Delete
-                                </a>
-                            }
+                                Delete
+                            </a>
+                        }
 
-                        </td>
-                    </tr>
-                }
+                    </td>
+                </tr>
+            }
             </tbody>
 
         </table>

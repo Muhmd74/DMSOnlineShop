@@ -8,7 +8,7 @@ namespace DMSOnlineStore.WebUI.Repositories.CardHome
 {
     public interface ICard
     {
-        Task<IEnumerable<CardHomeViewModel>> GetCards();
-        Task<IEnumerable<CardHomeViewModel>> Search(string name);
+        Task<IEnumerable<CardHomeViewModel>> GetCards(string name);
+        
     }
 }

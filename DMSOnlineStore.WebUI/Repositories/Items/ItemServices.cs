@@ -105,10 +105,11 @@ namespace DMSOnlineStore.WebUI.Repositories.Items
 
         }
 
-        public async Task<IEnumerable<ItemsViewModel>> GetAll()
+        public async Task<IEnumerable<ItemsViewModel>> GetAll(string name)
         {
             return await _context.Items.Include(d => d.UnitOfMeasure)
                 .OrderByDescending(d => d.Created)
+                .Where(d => d.Name.Contains(name)|| name==null)
                 .Select(d => new ItemsViewModel()
                 {
                     Id = d.Id,

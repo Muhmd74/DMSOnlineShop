@@ -16,7 +16,7 @@ namespace DMSOnlineStore.WebUI.Repositories.Items
         Task<bool> DeleteOrRestore(Guid id);
         Task<bool> ChangeActivity(Guid id);
         Task<IEnumerable<ItemsViewModel>> Filter(string name);
-        Task<IEnumerable<ItemsViewModel>> GetAll();
+        Task<IEnumerable<ItemsViewModel>> GetAll(string name);
         Task<IEnumerable<ItemsViewModel>> GetAllDeleted();
         Task<ItemFormViewModel> Get(Guid id);
     }

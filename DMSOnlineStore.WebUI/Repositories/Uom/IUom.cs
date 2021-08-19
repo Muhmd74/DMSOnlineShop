@@ -12,7 +12,7 @@ namespace DMSOnlineStore.WebUI.Repositories.Uom
         Task<bool> Add(UomFormViewModel model);
         Task<bool> Update(UomFormViewModel model);
         Task<bool> DeleteOrRestore(Guid id);
-        Task<IEnumerable<UomFormViewModel>> GetAll();
+        Task<IEnumerable<UomFormViewModel>> GetAll(string name);
         Task<IEnumerable<UomFormViewModel>> Filter(string name);
         Task<IEnumerable<UomFormViewModel>> GetAllDeleted();
         Task<UomFormViewModel> Get(Guid id);

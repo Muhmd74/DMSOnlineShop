@@ -74,10 +74,11 @@ namespace DMSOnlineStore.WebUI.Repositories.Uom
             }
         }
 
-        public async Task<IEnumerable<UomFormViewModel>> GetAll()
+        public async Task<IEnumerable<UomFormViewModel>> GetAll(string name)
         {
             return await _context.UnitOfMeasures
                 .OrderByDescending(d=>d.DateTime)
+                .Where(d => d.Name.Contains(name) || name==null)
                 .Select(d => new UomFormViewModel()
             {
                 Id = d.Id,

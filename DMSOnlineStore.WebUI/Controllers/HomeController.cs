@@ -17,9 +17,9 @@ namespace DMSOnlineStore.WebUI.Controllers
             _card = card;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string name)
         {
-            var model =await _card.GetCards();
+            var model =await _card.GetCards(  name);
             return View(model);
         }
     }

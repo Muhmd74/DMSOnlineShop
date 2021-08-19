@@ -18,7 +18,7 @@ namespace DMSOnlineStore.WebUI.Controllers
         private readonly IUom _uom;
         private readonly FileService.FileService _fileService;
 
-        public ItemsController(IItem item, IToastNotification toastNotification, IUom uom,   FileService.FileService fileService)
+        public ItemsController(IItem item, IToastNotification toastNotification, IUom uom, FileService.FileService fileService)
         {
             _item = item;
             _toastNotification = toastNotification;
@@ -27,9 +27,9 @@ namespace DMSOnlineStore.WebUI.Controllers
 
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string name)
         {
-            var model = await _item.GetAll();
+            var model = await _item.GetAll(name);
             return View(model);
         }
 
@@ -58,15 +58,15 @@ namespace DMSOnlineStore.WebUI.Controllers
         {
             var viewModel = new ItemFormViewModel()
             {
-                UnitOfMeasures = await _uom.GetAll()
+                UnitOfMeasures = await _uom.GetAll("")
             };
-            return View("Create",viewModel);
+            return View("Create", viewModel);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(Guid id)
         {
-         
+
             var viewModel = await _item.Get(id);
             var model = await _item.Update(viewModel);
             _toastNotification.AddSuccessToastMessage(" The operation was successfully ");
@@ -78,7 +78,7 @@ namespace DMSOnlineStore.WebUI.Controllers
         {
             var viewModel = new ItemFormViewModel()
             {
-                UnitOfMeasures = await _uom.GetAll()
+                UnitOfMeasures = await _uom.GetAll("")
             };
             return View(viewModel);
         }
@@ -96,7 +96,7 @@ namespace DMSOnlineStore.WebUI.Controllers
             {
                 model.ImageUrl = await _fileService.Upload(files.FirstOrDefault(), "Items");
             }
-            var result =await _item.Add(model);
+            var result = await _item.Add(model);
             _toastNotification.AddSuccessToastMessage(" The operation was successfully ");
 
             return RedirectToAction(nameof(Index));
