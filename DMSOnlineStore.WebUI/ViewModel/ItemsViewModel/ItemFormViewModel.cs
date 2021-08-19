@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using DMSOnlineStore.Core.Models;
+using DMSOnlineStore.WebUI.ViewModel.UomViewModel;
+using Microsoft.AspNetCore.Http;
 
-namespace DMSOnlineStore.WebUI.ViewModel
+namespace DMSOnlineStore.WebUI.ViewModel.ItemsViewModel
 {
     public class ItemFormViewModel
     {
+        public Guid Id { get; set; }
         [Required,StringLength(250)]
         public string Name { get; set; }
         [ StringLength(250)]
@@ -17,11 +19,17 @@ namespace DMSOnlineStore.WebUI.ViewModel
         public int Quantity { get; set; }
         [Required]
         public decimal Price { get; set; }
-        public float Discount { get; set; } 
+        public float Discount { get; set; }
+        [Display(Name = "Tax")]
         public decimal Vat { get; set; }
+        [Display(Name = "Image")]
         public string ImageUrl { get; set; }
-        public bool IsDeleted { get; set; }
-        [Display(Name = "UOM")]
+
+          [Display(Name = "UOM")]
         public Guid UnitOfMeasureId { get; set; }
+        public IEnumerable<UomFormViewModel> UnitOfMeasures { get; set; }
+
+        [Display(Name = "Name Uom")]
+        public string UomName { get; set; }
     }
 }

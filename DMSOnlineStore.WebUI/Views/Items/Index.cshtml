@@ -1,0 +1,118 @@
+﻿@model IEnumerable<ItemsViewModel>
+@{
+    ViewData["Title"] = "Products";
+
+}
+@{var searchString="Empty"}
+<h2>
+    Products
+</h2>
+<hr />
+<a class="btn btn-primary " asp-action="Create" >
+    Add Products
+</a>
+
+<form class="form-inline d-flex justify-content-center md-form form-sm active-cyan active-cyan-2 mt-2">
+    <i class="fas fa-search" aria-hidden="true"></i>
+    <input class="form-control form-control-sm ml-3 w-75" type="text" asp-action="Search" />
+         
+</form>
+<div class="mt-4">
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning" role="alert">
+            No Products Found!
+        </div>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Uom</th>
+                    <th>Discount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td id="@searchString" >
+                            
+                            @Html.ActionLink(item.Name, "Details", "Items"
+                                , new {id = item.Id})
+                        </td>
+                        <td>@item.Price</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Uom</td>
+                        <td>@item.Discount</td>
+                        <td>
+                            <a href="@Url.Action("Update","Items",new {id = item.Id})" class="btn btn-primary">
+
+                                Edit
+                            </a>
+                            @if (item.IsDeleted)
+                            {
+                                <a href="@Url.Action("Delete","Items",new {id = item.Id})" class="btn btn-success">
+                                    Restore
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="javascript:;" class="btn btn-danger js-delete data-Id=@item.Id">
+
+                                    Delete
+                                </a>
+                            }
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    }
+
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('.js-delete').on('click ',
+                function () {
+                    var btn = $(this);
+                    bootbox.confirm({
+                        message: "Are you sure That We need delete this Product?",
+                        buttons: {
+                            confirm: {
+                                label: 'Yes',
+                                className: 'btn-danger'
+                            },
+                            cancel: {
+                                label: 'No',
+                                className: 'btn-outline-secondary'
+                            }
+                        },
+                        callback: function (result) {
+                            if (result) {
+                                $.ajax({
+                                    url: '/Items/' + btn.data('id'),
+                                    success: function () {
+                                        btn.parent('.table').fadeOut();
+
+                                    }
+                                });
+
+                            }
+                        }
+                    });
+
+                });
+        });
+    </script>
+}

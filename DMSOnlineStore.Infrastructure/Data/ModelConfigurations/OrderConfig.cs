@@ -11,8 +11,9 @@ namespace DMSOnlineStore.Infrastructure.Data.ModelConfigurations
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
-           
 
+            builder.Property(x => x.Id)
+                .HasDefaultValueSql("NEWID()");
             //Order : User
             builder.HasOne(d => d.User)
                 .WithMany(d => d.Orders)

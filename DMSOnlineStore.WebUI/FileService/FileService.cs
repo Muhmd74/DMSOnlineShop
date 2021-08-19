@@ -16,7 +16,7 @@ namespace DMSOnlineStore.WebUI.FileService
             _uploadCore = uploadCore;
         }
 
-        public Task<string> LocalUpload(IFormFile file, string folderName)
+        public Task<string> Upload(IFormFile file, string folderName)
         {
 
             string url;

@@ -17,7 +17,26 @@ a {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
-
+.btn-save {
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.btn-back {
+    
+    border: 1.5px;
+    color: white;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
   background-color: #1b6ec2;
@@ -50,12 +69,22 @@ button.accept-policy {
   font-size: 1rem;
   line-height: inherit;
 }
+/*Custom Style*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 
+}
+input[type=number] {
+   -moz-appearance: textfield;
+
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
@@ -68,4 +97,10 @@ body {
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+}
+textarea {
+    resize: none;
+}
+.mt-60-px {
+    margin-top: 60px;
 }

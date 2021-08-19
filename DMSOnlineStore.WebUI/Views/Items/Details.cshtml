@@ -1,0 +1,27 @@
+﻿@model ItemFormViewModel
+
+@{
+    {
+        ViewData["Title"] = Model.Name;
+    }
+}
+ 
+<div class="row mt-60-px" >
+    <div class="col-md-3">
+        <img src="" class="img-thumbnail" alt="@Model.Name"/>
+    </div>
+    <div class="col-md-7 justify-content-between">
+        <div>
+            <h3>@Model.Name</h3>
+        </div>
+        <span class="text-justify mr-3">Description:@Model.Description</span>
+        <span class="text-muted  mr-3"  >Created: @Model.Created </span>
+        <span class="text-muted  mr-3" >Quantity: @Model.Quantity</span>
+        <span class="text-muted  mr-3" > Price: @Model.Price $</span>
+        <span class="text-muted  mr-3">Discount: @Model.Discount %</span>
+        <span class="text-muted  mr-3">Tax: @Model.Vat</span>
+        <span class="text-muted  mr-3">  </span>
+
+    </div>
+
+</div>

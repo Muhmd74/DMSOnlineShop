@@ -1,0 +1,65 @@
+﻿@model IEnumerable<UomFormViewModel>
+@{
+    ViewData["Title"] = "Unit Of Measure";
+}
+
+<h2>
+    Unit Of Measure
+</h2>
+
+<hr />
+<a class="btn btn-primary" asp-action="Create">
+  <i class="bi bi-plus-circle"></i>
+
+    Add Uom
+</a>
+<div class="mt-4">
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning" role="alert">
+            No Unit Of Measure Found!
+        </div>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var uom in Model)
+                {
+                    <tr>
+                        <td>@uom.Name</td>
+                        <td>@uom.Description</td>
+                        <td>
+                            <a href="@Url.Action("Update","Uom",new {id = uom.Id})" class="btn btn-primary">
+
+                                Edit
+                            </a>
+                            @if (uom.IsDeleted)
+                            {
+                                <a href="@Url.Action("DeleteOrRestore","Uom",new {id = uom.Id})" class="btn btn-success">
+                                    Restore
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("DeleteOrRestore","Uom",new {id = uom.Id})" class="btn btn-danger">
+                                   Delete
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    }
+
+</div>

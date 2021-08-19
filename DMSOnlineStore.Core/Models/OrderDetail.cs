@@ -6,9 +6,12 @@ using System.Text;
 
 namespace DMSOnlineStore.Core.Models
 {
-   public class OrderDetail : BaseEntity
+   public class OrderDetail
     {
-       public int Quantity { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
+        public int Quantity { get; set; }
         public decimal Price { get; set; }
         public Guid UnitOfMeasureId { get; set; }
         public UnitOfMeasure UnitOfMeasure { get; set; }

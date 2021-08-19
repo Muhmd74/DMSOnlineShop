@@ -7,9 +7,11 @@ using DMSOnlineStore.Core.Enums;
 
 namespace DMSOnlineStore.Core.Models
 {
-   public class Order : BaseEntity
+   public class Order  
     {
-    
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime RequestDate { get; set; }
         public DateTime DueDate { get; set; }

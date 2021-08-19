@@ -1,3 +1,8 @@
+using DMSOnlineStore.Infrastructure.Data.Tools;
+using DMSOnlineStore.WebUI.FileService;
+using DMSOnlineStore.WebUI.Installer;
+using DMSOnlineStore.WebUI.Repositories.Items;
+using DMSOnlineStore.WebUI.Repositories.Uom;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +24,10 @@ namespace DMSOnlineStore.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.InstallServicesInAssembly(Configuration);
             services.AddControllersWithViews();
+       
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,9 +52,8 @@ namespace DMSOnlineStore.WebUI
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+
             });
         }
     }

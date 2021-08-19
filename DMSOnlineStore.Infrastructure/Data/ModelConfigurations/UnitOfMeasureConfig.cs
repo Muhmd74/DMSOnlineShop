@@ -11,7 +11,8 @@ namespace DMSOnlineStore.Infrastructure.Data.ModelConfigurations
     {
         public void Configure(EntityTypeBuilder<UnitOfMeasure> builder)
         {
-          
+            builder.Property(x => x.Id)
+                .HasDefaultValueSql("NEWID()");
             builder.Property(d => d.Name)
                 .IsRequired()
                 .HasMaxLength(50);

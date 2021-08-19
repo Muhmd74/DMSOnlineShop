@@ -4,14 +4,16 @@ using DMSOnlineStore.Infrastructure.Data.Tools;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DMSOnlineStore.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210817223244_RemoveBaseEntity")]
+    partial class RemoveBaseEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,8 +25,7 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -38,9 +39,6 @@ namespace DMSOnlineStore.Infrastructure.Migrations
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -78,8 +76,7 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Discount")
                         .HasColumnType("decimal(18,2)");
@@ -119,8 +116,7 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ItemId")
                         .HasColumnType("uniqueidentifier");
@@ -152,8 +148,7 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
@@ -182,8 +177,7 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");

@@ -7,12 +7,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DMSOnlineStore.Infrastructure.Data.ModelConfigurations
 {
-    class BaseEntityConfig : IEntityTypeConfiguration<BaseEntity>
-    {
-        public void Configure(EntityTypeBuilder<BaseEntity> builder)
-        {
-            builder.Property(x => x.Id)
-                .HasDefaultValueSql("NEWID()");
-        }
-    }
+    //class BaseEntityConfig : IEntityTypeConfiguration<BaseEntity>
+    //{
+    //    public void Configure(EntityTypeBuilder<BaseEntity> builder)
+    //    {
+    //        builder.Property(x => x.Id)
+    //            .HasDefaultValueSql("NEWID()");
+    //    }
+    //}
 }

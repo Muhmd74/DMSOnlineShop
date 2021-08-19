@@ -6,20 +6,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.18" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.18">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="NToastNotify" Version="6.0.1" />
+    <PackageReference Include="toastr" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DMSOnlineStore.Core\DMSOnlineStore.Core.csproj" />
     <ProjectReference Include="..\DMSOnlineStore.Infrastructure\DMSOnlineStore.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Uploads\Items\" />
   </ItemGroup>
 
 </Project>
