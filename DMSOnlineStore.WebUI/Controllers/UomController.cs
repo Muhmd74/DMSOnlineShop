@@ -39,12 +39,13 @@ namespace DMSOnlineStore.WebUI.Controllers
             
             if (!ModelState.IsValid)
             {
-                await _uom.Add(model);
+                
                  return View(model);
             }
             await _uom.Add(model);
+            _toastNotification.AddSuccessToastMessage(" The operation was successfully ");
 
-              return View("CreateUom", model);
+            return RedirectToAction(nameof(Index));
 
         }
 
@@ -60,7 +61,7 @@ namespace DMSOnlineStore.WebUI.Controllers
         {
             var viewModel = await _uom.Get(id);
             var model = await _uom.Update(viewModel);
-            return RedirectToAction(nameof(Index));
+            return View("Create",viewModel);
         }
     }
 }

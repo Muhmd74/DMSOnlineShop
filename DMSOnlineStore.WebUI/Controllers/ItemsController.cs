@@ -35,6 +35,7 @@ namespace DMSOnlineStore.WebUI.Controllers
 
         public async Task<IActionResult> Search(string name)
         {
+            ViewData["GetItem"] = name;
             var model = await _item.Filter(name);
             return View("Index", model);
         }
@@ -53,12 +54,24 @@ namespace DMSOnlineStore.WebUI.Controllers
             return View(model);
 
         }
-
+        public async Task<IActionResult> Update()
+        {
+            var viewModel = new ItemFormViewModel()
+            {
+                UnitOfMeasures = await _uom.GetAll()
+            };
+            return View("Create",viewModel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(Guid id)
         {
+         
             var viewModel = await _item.Get(id);
             var model = await _item.Update(viewModel);
-            return View(model);
+            _toastNotification.AddSuccessToastMessage(" The operation was successfully ");
+
+            return View("Create", viewModel);
         }
 
         public async Task<IActionResult> Create()
@@ -75,7 +88,7 @@ namespace DMSOnlineStore.WebUI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                Create();
+                await Create();
 
             }
             var files = Request.Form.Files;
@@ -83,7 +96,7 @@ namespace DMSOnlineStore.WebUI.Controllers
             {
                 model.ImageUrl = await _fileService.Upload(files.FirstOrDefault(), "Items");
             }
-            var result = _item.Add(model);
+            var result =await _item.Add(model);
             _toastNotification.AddSuccessToastMessage(" The operation was successfully ");
 
             return RedirectToAction(nameof(Index));

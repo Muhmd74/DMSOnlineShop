@@ -2,21 +2,22 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
+
 .btn-save {
     background-color: #008CBA;
     border: none;
@@ -27,8 +28,8 @@ a {
     display: inline-block;
     font-size: 16px;
 }
+
 .btn-back {
-    
     border: 1.5px;
     color: white;
     padding: 10px 24px;
@@ -37,48 +38,50 @@ a {
     display: inline-block;
     font-size: 16px;
 }
+
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 /*Custom Style*/
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-
 }
-input[type=number] {
-   -moz-appearance: textfield;
 
+input[type=number] {
+    -moz-appearance: textfield;
 }
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -88,19 +91,85 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
 }
+
 textarea {
     resize: none;
 }
+
 .mt-60-px {
     margin-top: 60px;
 }
+/*Card Home*/
+.card-content {
+    color: #9DBFAF;
+}
+.card {
+    width: 22%;
+    display: inline-block;
+    padding: 3px;
+    box-shadow: 2px 2px 20px black;
+    border-radius: var(--bs-gray);
+    margin: 1.5% 1% 0%1.5%;
+     
+  
+    text-align: center;
+    font-family: arial;
+}
+.price {
+    color: grey;
+    font-size: 19px;
+    text-align: center;
+    margin-right: 5px
+}
+.price-di {
+    color: grey;
+    font-size: 19px;
+    text-align: right;
+    margin-right: 3px;
+
+}
+    .card .image img {
+        width: 100%;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+
+    }
+
+ 
+.card button {
+    border: none;
+    
+    outline: 0;
+    padding: 12px;
+    color: gainsboro;
+   outline: #fdf5e6;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+
+}
+.p-title {
+    margin-top: 5px;
+
+}
+
+.card button:hover {
+    background-color: brown;
+    color: white;
+    transition: .5s;
+    cursor: pointer;
+}
+
+

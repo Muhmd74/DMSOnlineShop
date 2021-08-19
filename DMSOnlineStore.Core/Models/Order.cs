@@ -15,13 +15,16 @@ namespace DMSOnlineStore.Core.Models
         public DateTime OrderDate { get; set; }
         public DateTime RequestDate { get; set; }
         public DateTime DueDate { get; set; }
-        public StatueType Statue { get; set; } 
+        public StatueType Statue { get; set; }
+        public string Address { get; set; }
+        public string Description { get; set; }
+
         public int Tax { get; set; }
         public decimal TaxValue { get; set; }
         public decimal Discount { get; set; }
         public decimal TotalPrice { get; set; }
         public Guid UserId { get; set; }
         public User User { get; set; }
-        public ICollection<OrderDetail> OrderDetails { get; set; }
+        public IEnumerable<OrderDetail> OrderDetails { get; set; }
     }
 }

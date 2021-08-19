@@ -3,7 +3,16 @@
     ViewData["Title"] = "Create";
 }
 
-<h3>Create New Product</h3>
+@{
+    if (@Model.Id == Guid.Empty)
+    {
+        <h2>Add New Item </h2>
+    }
+    else
+    {
+        <h2>Update Item </h2>
+    }
+}
 <hr />
 <section class="row">
     <div class="col-md-4">
@@ -14,63 +23,75 @@
                 <input type="text" class="form-control" asp-for="Name" maxlength="250" />
                 <span asp-validation-for="Name " class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label class="text-muted" asp-for="UnitOfMeasureId"> </label>
-                <select class="form-control" asp-for="UnitOfMeasureId" asp-items="@(new SelectList(Model.UnitOfMeasures, "Id", "Name"))">
-                    <option value=""></option>
-                </select>
-                <span asp-validation-for="UnitOfMeasureId " class="text-danger"></span>
-            </div>
+            @if (@Model.Id == Guid.Empty)
+            {
+                <div class="form-group">
+                    <label class="text-muted" asp-for="UnitOfMeasureId"> </label>
+                    <select class="form-control" asp-for="UnitOfMeasureId" asp-items="@(new SelectList(Model.UnitOfMeasures, "Id", "Name"))">
+                        <option value=""></option>
+                    </select>
+                    <span asp-validation-for="UnitOfMeasureId " class="text-danger"></span>
+                </div>
+            }
             <div class="form-group w-75">
                 <label class="text-muted" asp-for="Quantity"> </label>
-                <input type="number" value=""class="form-control" asp-for="Quantity" />
+                <input type="number" value="@(Model.Quantity>0?(object) Model.Quantity:string.Empty)"
+                class="form-control" asp-for="Quantity" />
                 <span asp-validation-for="Quantity " class="text-danger"></span>
             </div>
             <div class="form-group w-75">
-                <div><label class="text-muted" asp-for="Price"> </label>
-                    <input type="number" class="form-control" asp-for="Price" value=""/>
-                    <span asp-validation-for="Price " class="text-danger"></span></div>
-                <div >
+                <div>
+                    <label class="text-muted" asp-for="Price"> </label>
+                    <input type="number" class="form-control" asp-for="Price" value="@(Model.Price>0?(object) Model.Price:string.Empty)" />
+                    <span asp-validation-for="Price " class="text-danger"></span>
+
+                </div>
+                <div>
+                    <label class="text-muted" asp-for="Discount"> </label>
+                    <input type="number" class="form-control" asp-for="Discount" value="@(Model.Discount>0?(object) Model.Discount:string.Empty)" />
+                </div>
+
+                <div>
                     <label class="text-muted" asp-for="Vat"> </label>
-                    <input type="number" class="form-control" asp-for="Vat" value="" />
-            
+                    <input type="number" class="form-control" asp-for="Vat" value="@(Model.Vat>0?(object) Model.Vat:string.Empty)" />
+
                 </div>
             </div>
-        
+
             <div class="form-group">
                 <label class="text-muted" asp-for="Description"> </label>
                 <textarea class="form-control" asp-for="Description" maxlength="2500" rows="4"></textarea>
                 <span asp-validation-for="Description " class="text-danger"></span>
             </div>
             <div class="custom-file">
-                <input type="file" value=""class="custom-file-input" asp-for="ImageUrl"  />
+                <input type="file" value="" class="custom-file-input" asp-for="ImageUrl" />
                 <label class="custom-file-label" asp-for="ImageUrl"> </label>
                 <span asp-validation-for="ImageUrl " class="text-danger"></span>
 
             </div>
             <div>
                 <button type="submit" class="btn btn-primary mt-4 ">
-                    Save 
+                    Save
                 </button>
-                <button asp-action="Index" class="btn btn-outline-secondary mt-4" >
+                <button asp-action="Index" class="btn btn-outline-secondary mt-4">
                     Back
                 </button>
             </div>
-         
+
         </form>
     </div>
     <div class="col-md-4">
         <div id="image-container" class="d-none">
-            <img src="" alt="Image" class="img-thumbnail"/>
+            <img src="" alt="Image" class="img-thumbnail" />
         </div>
     </div>
 </section>
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-        <script>
-        $(document).ready(function() {
+    <script>
+        $(document).ready(function () {
             $('#ImageUrl').on('change',
-                function() {
+                function () {
                     var selectedFile = $(this).val().split('\\').pop();
                     $(this).siblings('label').text(selectedFile);
 

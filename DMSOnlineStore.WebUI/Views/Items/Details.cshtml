@@ -2,25 +2,38 @@
 
 @{
     {
-        ViewData["Title"] = Model.Name;
+        ViewData["Title"] = "Item Details";
     }
 }
- 
-<div class="row mt-60-px" >
-    <div class="col-md-3">
-        <img src="" class="img-thumbnail" alt="@Model.Name"/>
+<h2 style="text-align: center">Item Details</h2>
+<hr style="margin: auto; width: 50%" />
+<div class="row mt-60-px">
+    <div class="col-md-4">
+       
     </div>
     <div class="col-md-7 justify-content-between">
         <div>
-            <h3>@Model.Name</h3>
+            <h3 style="margin: 20px 0">@Model.Name</h3>
         </div>
-        <span class="text-justify mr-3">Description:@Model.Description</span>
-        <span class="text-muted  mr-3"  >Created: @Model.Created </span>
-        <span class="text-muted  mr-3" >Quantity: @Model.Quantity</span>
-        <span class="text-muted  mr-3" > Price: @Model.Price $</span>
-        <span class="text-muted  mr-3">Discount: @Model.Discount %</span>
-        <span class="text-muted  mr-3">Tax: @Model.Vat</span>
-        <span class="text-muted  mr-3">  </span>
+        <div class="text-justify mr-3"style="display: block ">
+            <h6 style="margin : 5px 10px 5px 0;display: inline-block">Description :</h6>@Model.Description
+        </div>
+        <div class="text-muted  mr-3" style="display: block ">
+            <h6 style="margin : 5px 10px 5px 0;display: inline-block">Created :</h6> @Model.Created
+        </div>
+        <div class="text-muted  mr-3" style="display: block ">
+            <h6 style="margin : 5px 10px 5px 0;display: inline-block">Quantity :</h6> @Model.Quantity
+        </div>
+        <div class="text-muted  mr-3" style="display: block ">
+            <h6 style="margin : 5px 10px 5px 0 ;display: inline-block">Price :</h6> @Model.Price $
+        </div>
+        <div class="text-muted  mr-3 " style="display: block ">
+            <h6 style="margin: 5px 10px 5px 0; width: 90px;display: inline-block ">Discount :</h6> @Model.Discount %
+        </div>
+        <div class="text-muted  mr-3" style="display: block ">
+            <h6 style="margin : 5px 10px 5px 0;display: inline-block">Tax :</h6> @Model.Vat
+        </div>
+
 
     </div>
 

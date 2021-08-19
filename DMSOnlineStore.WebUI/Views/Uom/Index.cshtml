@@ -3,13 +3,13 @@
     ViewData["Title"] = "Unit Of Measure";
 }
 
-<h2>
+<h2 style="text-align: center " >
     Unit Of Measure
-</h2>
+</h2  >
 
 <hr />
 <a class="btn btn-primary" asp-action="Create">
-  <i class="bi bi-plus-circle"></i>
+    <i  class="bi bi-plus-lg" style="margin-right: 6px"> </i>
 
     Add Uom
 </a>
@@ -29,6 +29,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,20 +40,24 @@
                         <td>@uom.Description</td>
                         <td>
                             <a href="@Url.Action("Update","Uom",new {id = uom.Id})" class="btn btn-primary">
-
+                                <i class="bi bi-pencil-square" style="margin-right: 5px"></i>
                                 Edit
                             </a>
                             @if (uom.IsDeleted)
                             {
                                 <a href="@Url.Action("DeleteOrRestore","Uom",new {id = uom.Id})" class="btn btn-success">
+                                    <i class="bi bi-skip-backward"  style="margin-right: 5px"></i>
+
                                     Restore
                                 </a>
                             }
                             else
                             {
-                                <a href="@Url.Action("DeleteOrRestore","Uom",new {id = uom.Id})" class="btn btn-danger">
-                                   Delete
-                                </a>
+                        <a href="@Url.Action("DeleteOrRestore", "Uom", new {id = uom.Id})" class="btn btn-danger">
+                            <i class="bi bi-x" style="margin-right: 5px"></i>
+
+                            Delete
+                        </a>
                             }
                         </td>
                     </tr>

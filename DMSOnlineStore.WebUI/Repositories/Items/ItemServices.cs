@@ -26,11 +26,11 @@ namespace DMSOnlineStore.WebUI.Repositories.Items
                     Name = model.Name,
                     Created = DateTime.Now,
                     Description = model.Description,
-                    Discount = (float) 10.327,
-                    Price = 45,
-                    Quantity = 45,
+                    Discount = model.Discount,
+                    Price = model.Price,
+                    Quantity = model.Quantity,
                     UnitOfMeasureId = model.UnitOfMeasureId,
-                    Vat =54
+                    Vat =model.Vat
                 });
                 await _context.SaveChangesAsync();
                 return new ItemFormViewModel();
@@ -159,6 +159,7 @@ namespace DMSOnlineStore.WebUI.Repositories.Items
                     Price = result.Price,
                     Quantity = result.Quantity,
                     UomName = result.UnitOfMeasure.Name,
+                    UnitOfMeasureId = result.UnitOfMeasureId,
                     Vat = result.Vat
                 };
             }

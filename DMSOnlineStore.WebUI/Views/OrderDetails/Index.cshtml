@@ -1,0 +1,53 @@
+﻿@model IEnumerable<OrderTableViewModel>
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h2 style="text-align: center" >Orders </h2>
+<hr/>
+
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning" role="alert">
+        No Orders Found!
+    </div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+        <thead>
+            <tr>
+                <th>UserName</th>
+                <th>Price</th>
+                <th> Discount</th>
+                <th>Request Date</th>
+                <th>Statue</th>
+                <th>TaxValue</th>
+                <th>Due Date</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+
+                        @Html.ActionLink(item.UserName, "Index", "OrderDetails"
+                            , new { id = item.Id })
+                    </td>
+                    <td>@item.TotalPrice</td>
+                    <td>@item.Discount</td>
+                    <td>@item.RequestDate</td>
+                    <td>@item.Statue</td>
+                    <td>@item.TaxValue</td>
+                    <td>@item.DueDate</td>
+                 
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}

@@ -1,0 +1,60 @@
+﻿ 
+@model OrderTableDetailsViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2 style="text-align: center">Orders Details </h2>
+<hr />
+@{
+    var itemList = @Model.Items;
+}
+@{
+
+}
+
+<div class="mt-4">
+
+
+    <table class="table table-striped">
+        <thead>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Unit of Measure</th>
+                <th>Discount</th>
+                <th>Description</th>
+                <th>Tax</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in itemList)
+            {
+                <tr>
+                    <td>@item.ItemName</td>
+                    <td>@item.Price</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Uom</td>
+                    <td>@item.Discount</td>
+                    <td>@item.ItemDescription</td>
+                    <td>@item.Tax</td>
+                    <td>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+    <div style="margin-top: 20px">
+        <a href="@Url.Action("ChangeStatue","OrderDetails",new {id = Model.Id, StatueType=3})" class="btn btn-success">
+            Accept Order
+        </a>
+        <a href="@Url.Action("ChangeStatue","OrderDetails",new {id = Model.Id, StatueType=4})" class="btn btn-outline-secondary">
+                Cancel Order
+            </a>
+
+    </div>
+
+</div>

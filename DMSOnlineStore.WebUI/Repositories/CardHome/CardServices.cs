@@ -21,7 +21,7 @@ namespace DMSOnlineStore.WebUI.Repositories.CardHome
         {
             return await _context.Items
                 .OrderByDescending(d => d.Created)
-                .Where(d => d.IsActive && d.IsDeleted == false)
+                .Where(d => d.IsDeleted == false)
                 .Select(d => new CardHomeViewModel()
                 {
                     Name = d.Name,
