@@ -3,16 +3,18 @@
     ViewData["Title"] = "Products";
 }
 
-<h2 style="text-align: center " >DMS Online Shop</h2>
+<h2 style="text-align: center " >DMS Store</h2>
 <hr style="text-align: center "  />
  
-<div style="margin-right: auto;display: inline-block">
+<div style="margin-left: 70%;display: inline-block">
     @using (Html.BeginForm("Index", "Home", FormMethod.Get))
     {
 
-        @Html.TextBox("name") <input type="submit" value="Search " />
+
+        @Html.TextBox("name") <input  type="submit" value="Search " />
     }
 </div>
+<hr/>
 <div class="card-content">
     <div class="card-items">
         @foreach (var card in Model)
@@ -41,50 +43,3 @@
     </div>
 </div>
 
-@*<div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col">
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title"></h5>
-                    <p class="card-text"></p>
-                </div>
-
-                <span class="list-group-item"></span>
-                <span class="list-group-item"></span>
-
-            </div>
-        </div>
-
-    </div>*@
-@*<div class="card" style="width: 18rem;">
-        <img src="@card.ImageUrl" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title" >@card.Name</h5>
-            <p class="card-text">@card.Description</p>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item" >Price :@card.Price $</li>
-            <li class="list-group-item" >Discount :@card.Discount %</li>
-        </ul>
-        <div class="card-body">
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
-        </div>
-    </div>*@
-<!--<div class="card" style="width: 18rem;">
-    <img src="  class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title"></h5>
-        <p class="card-text"></p>
-    </div>
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item"></li>
-        <li class="list-group-item"></li>
-    </ul>
-    <div class="card-body">
-        <a href="#" class="card-link"></a>
-        <a href="#" class="card-link"></a>
-    </div>
-</div>
-}-->

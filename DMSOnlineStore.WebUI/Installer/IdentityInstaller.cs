@@ -14,13 +14,10 @@ namespace DMSOnlineStore.WebUI.Installer
     {
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddIdentity<ApplicationUser, IdentityRole>
-            (options =>
-            {
-                options.Password.RequiredLength = 10;
-                options.Password.RequiredUniqueChars = 3;
-
-            }).AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole> ()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
         }
     }
 }

@@ -10,8 +10,6 @@ namespace DMSOnlineStore.WebUI.ViewModel.Account
         [Required]
         [EmailAddress]
         [Remote(action: "IsEmailInUse", controller: "Account")]
-        [ValidEmailDomain(allowedDomain: "emailname@yahoo.com",
-            ErrorMessage = "Email domain must be emailname@yahoo.com")]
         public string Email { get; set; }
 
         [Required]
@@ -23,6 +21,11 @@ namespace DMSOnlineStore.WebUI.ViewModel.Account
         [Compare("Password",
             ErrorMessage = "Password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+        [Display(Name = "Last Name")]
+
+        public string LastName { get; set; }
     }
 
 }

@@ -3,21 +3,20 @@
     ViewData["Title"] = "Unit Of Measure";
 }
 
-<h2 style="text-align: center " >
-    Unit Of Measure
-</h2  >
-
+ 
+<h1 style="text-align: center">Unit Of Measure</h1>
+<hr style="width: 50%;text-align: center" />
 <hr />
 <a class="btn btn-primary" asp-action="Create">
-    <i  class="bi bi-plus-lg" style="margin-right: 6px"> </i>
+    <i class="bi bi-plus-lg" style="margin-right: 6px"> </i>
 
     Add Uom
 </a>
-<div style="margin-right: auto;display: inline-block">
+<div style="margin-left: 70%;display: inline-block">
     @using (Html.BeginForm("Index", "Uom", FormMethod.Get))
     {
 
-        @Html.TextBox("name") <input type="submit" value="Search " />
+        @Html.TextBox("name") <input  type="submit" value="Search " />
     }
 </div>
 <div class="mt-4">
@@ -40,41 +39,41 @@
                 </tr>
             </thead>
             <tbody>
-             @if (!Model.Any())
-             {
-                 <div class="alert alert-warning" role="alert">
-                     No Unit Of Measure Found!
-                 </div>
-             }
-            @foreach (var uom in Model)
-            {
-                <tr>
-                    <td>@uom.Name</td>
-                    <td>@uom.Description</td>
-                    <td>
-                        <a href="@Url.Action("Update","Uom",new {id = uom.Id})" class="btn btn-primary">
-                            <i class="bi bi-pencil-square" style="margin-right: 5px"></i>
-                            Edit
-                        </a>
-                        @if (uom.IsDeleted)
-                        {
-                            <a href="@Url.Action("DeleteOrRestore","Uom",new {id = uom.Id})" class="btn btn-success">
-                                <i class="bi bi-skip-backward"  style="margin-right: 5px"></i>
-
-                                Restore
+                @if (!Model.Any())
+                {
+                    <div class="alert alert-warning" role="alert">
+                        No Unit Of Measure Found!
+                    </div>
+                }
+                @foreach (var uom in Model)
+                {
+                    <tr>
+                        <td>@uom.Name</td>
+                        <td>@uom.Description</td>
+                        <td>
+                            <a href="@Url.Action("Update","Uom",new {id = uom.Id})" class="btn btn-primary">
+                                <i class="bi bi-pencil-square" style="margin-right: 5px"></i>
+                                Edit
                             </a>
-                        }
-                        else
-                        {
-                            <a href="@Url.Action("DeleteOrRestore", "Uom", new {id = uom.Id})" class="btn btn-danger">
-                                <i class="bi bi-x" style="margin-right: 5px"></i>
+                            @if (uom.IsDeleted)
+                            {
+                                <a href="@Url.Action("DeleteOrRestore","Uom",new {id = uom.Id})" class="btn btn-success">
+                                    <i class="bi bi-skip-backward" style="margin-right: 5px"></i>
 
-                                Delete
-                            </a>
-                        }
-                    </td>
-                </tr>
-            }
+                                    Restore
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("DeleteOrRestore", "Uom", new {id = uom.Id})" class="btn btn-danger">
+                                    <i class="bi bi-x" style="margin-right: 5px"></i>
+
+                                    Delete
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                }
             </tbody>
 
         </table>

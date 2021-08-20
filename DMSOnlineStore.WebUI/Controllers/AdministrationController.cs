@@ -8,6 +8,7 @@ using DMSOnlineStore.WebUI.ViewModel.Administration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 
 namespace DMSOnlineStore.WebUI.Controllers
 {
@@ -15,22 +16,25 @@ namespace DMSOnlineStore.WebUI.Controllers
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IToastNotification _toastNotification;
 
-        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+
+        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager, IToastNotification toastNotification)
         {
             _roleManager = roleManager;
             _userManager = userManager;
+            _toastNotification = toastNotification;
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult CreateRole()
         {
             return View();
         }
 
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> CreateRole(CreateRoleViewModel model)
         {
             if (ModelState.IsValid)
@@ -44,6 +48,8 @@ namespace DMSOnlineStore.WebUI.Controllers
 
                 if (result.Succeeded)
                 {
+                    _toastNotification.AddSuccessToastMessage("Role Created was successfully ");
+
                     return RedirectToAction("ListRoles", "Administration");
                 }
 
@@ -57,7 +63,7 @@ namespace DMSOnlineStore.WebUI.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> ListRoles()
         {
             var roles = await _roleManager.Roles.ToListAsync();
@@ -65,7 +71,7 @@ namespace DMSOnlineStore.WebUI.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> EditRole(string id)
         {
 
@@ -90,13 +96,14 @@ namespace DMSOnlineStore.WebUI.Controllers
                     model.Users.Add(user.UserName);
                 }
             }
+            _toastNotification.AddSuccessToastMessage("Role Updated was successfully ");
 
             return View(model);
         }
 
 
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> EditRole(EditRoleViewModel model)
         {
             var role = await _roleManager.FindByIdAsync(model.Id);
@@ -115,6 +122,8 @@ namespace DMSOnlineStore.WebUI.Controllers
 
                 if (result.Succeeded)
                 {
+                    _toastNotification.AddSuccessToastMessage("Role Updated was successfully ");
+
                     return RedirectToAction("ListRoles");
                 }
 
@@ -128,7 +137,7 @@ namespace DMSOnlineStore.WebUI.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> EditUsersInRole(string roleId)
         {
             ViewBag.roleId = roleId;
@@ -166,7 +175,7 @@ namespace DMSOnlineStore.WebUI.Controllers
             return View(model);
         }
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> EditUsersInRole(List<UserRoleViewModel> model, string roleId)
         {
             var role = await _roleManager.FindByIdAsync(roleId);
@@ -200,14 +209,17 @@ namespace DMSOnlineStore.WebUI.Controllers
                 {
                     if (i < (model.Count - 1))
                         continue;
+                    _toastNotification.AddSuccessToastMessage("Role Updated was successfully ");
+
                     return RedirectToAction("EditRole", new { Id = roleId });
                 }
             }
+            _toastNotification.AddSuccessToastMessage("Role Updated was successfully ");
 
             return RedirectToAction("EditRole", new { Id = roleId });
         }
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult ListUsers()
         {
             var users = _userManager.Users;

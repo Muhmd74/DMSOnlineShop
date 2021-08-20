@@ -7,6 +7,7 @@ using DMSOnlineStore.Core.Models;
 using DMSOnlineStore.WebUI.ViewModel.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using NToastNotify;
 
 namespace DMSOnlineStore.WebUI.Controllers
 {
@@ -15,11 +16,13 @@ namespace DMSOnlineStore.WebUI.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IToastNotification _toastNotification;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IToastNotification toastNotification)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _toastNotification = toastNotification;
         }
         [HttpGet]
         [AllowAnonymous]
@@ -38,7 +41,9 @@ namespace DMSOnlineStore.WebUI.Controllers
                 var user = new ApplicationUser()
                 {
                     UserName = model.Email,
-                    Email = model.Email
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -46,6 +51,8 @@ namespace DMSOnlineStore.WebUI.Controllers
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
+                    _toastNotification.AddSuccessToastMessage(" The operation was successfully ");
+
                     return RedirectToAction("index", "home");
                 }
                 foreach (var error in result.Errors)

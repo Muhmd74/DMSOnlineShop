@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DMSOnlineStore.WebUI.Repositories.Items;
 using DMSOnlineStore.WebUI.Repositories.Uom;
 using DMSOnlineStore.WebUI.ViewModel.ItemsViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using NToastNotify;
 
@@ -27,6 +28,7 @@ namespace DMSOnlineStore.WebUI.Controllers
 
         }
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Index(string name)
         {
             var model = await _item.GetAll(name);
@@ -54,6 +56,8 @@ namespace DMSOnlineStore.WebUI.Controllers
             return View(model);
 
         }
+        [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Update()
         {
             var viewModel = new ItemFormViewModel()
@@ -63,7 +67,7 @@ namespace DMSOnlineStore.WebUI.Controllers
             return View("Create", viewModel);
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Update(Guid id)
         {
 
@@ -87,7 +91,8 @@ namespace DMSOnlineStore.WebUI.Controllers
             return View("Create");
 
         }
-
+        [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Create()
         {
             var viewModel = new ItemFormViewModel()
@@ -97,7 +102,7 @@ namespace DMSOnlineStore.WebUI.Controllers
             return View(viewModel);
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create(ItemFormViewModel model)
         {
             if (!ModelState.IsValid)

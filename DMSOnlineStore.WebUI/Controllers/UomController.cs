@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using DMSOnlineStore.WebUI.Repositories.Uom;
 using DMSOnlineStore.WebUI.ViewModel;
 using DMSOnlineStore.WebUI.ViewModel.UomViewModel;
+using Microsoft.AspNetCore.Authorization;
 using NToastNotify;
 
 namespace DMSOnlineStore.WebUI.Controllers
 {
+    [Authorize]
     public class UomController : Controller
     {
         private readonly IUom _uom;
@@ -23,7 +25,7 @@ namespace DMSOnlineStore.WebUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string name)
         {
-            var model =await _uom.GetAll(name);
+            var model = await _uom.GetAll(name);
             return View(model);
         }
         [HttpGet]
@@ -34,14 +36,13 @@ namespace DMSOnlineStore.WebUI.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(UomFormViewModel model)
         {
-            
+
             if (!ModelState.IsValid)
             {
-                
-                 return View(model);
+
+                return View(model);
             }
             await _uom.Add(model);
             _toastNotification.AddSuccessToastMessage(" The operation was successfully ");
@@ -52,17 +53,17 @@ namespace DMSOnlineStore.WebUI.Controllers
 
         public async Task<IActionResult> DeleteOrRestore(Guid id)
         {
-            var model =await _uom.DeleteOrRestore(id);
+            await _uom.DeleteOrRestore(id);
             _toastNotification.AddSuccessToastMessage(" The operation was successfully ");
             return RedirectToAction(nameof(Index));
-     
-        }
 
+        }
+        [HttpPost]
         public async Task<IActionResult> Update(Guid id)
         {
             var viewModel = await _uom.Get(id);
-            var model = await _uom.Update(viewModel);
-            return View("Create",viewModel);
+            await _uom.Update(viewModel);
+            return View("Create", viewModel);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace DMSOnlineStore.WebUI.Repositories.OrderDetails
         public async Task<List<OrderTableViewModel>> GetOrders()
         {
             return await _context.Orders
-                 //.Include(d => d.User)
+                 .Include(d => d.User)
                  .OrderByDescending(d => d.OrderDate)
                  .Where(d => d.Statue != StatueType.Cart)
                  .Select(d => new OrderTableViewModel()
@@ -33,7 +33,7 @@ namespace DMSOnlineStore.WebUI.Repositories.OrderDetails
                      OrderDate = d.OrderDate,
                      Statue = d.Statue.ToString(),
                      TotalPrice = d.TotalPrice,
-                     //UserName = d.User.Name,
+                     UserName =$" {d.User.FirstName} {d.User.LastName}",
                      Id = d.Id
 
                  }).ToListAsync();
@@ -55,7 +55,7 @@ namespace DMSOnlineStore.WebUI.Repositories.OrderDetails
         public async Task<OrderTableDetailsViewModel> OrderDetails(Guid id)
         {
             var model = await _context.Orders
-                 //.Include(d => d.User)
+                 .Include(d => d.User)
                  .Include(d => d.OrderDetails)
                  .ThenInclude(d => d.Item)
                  .Include(d => d.OrderDetails)
@@ -74,8 +74,8 @@ namespace DMSOnlineStore.WebUI.Repositories.OrderDetails
                    Statue = model.Statue.ToString(),
                    TaxValue = model.TaxValue,
                    TotalPrice = model.TotalPrice,
-                   //UserId = model.UserId,
-                   //UserName = model.User.Name,
+                   UserId = new Guid(model.UserId),
+                   UserName = $" {model.User.FirstName} {model.User.LastName}",
                    Items = model.OrderDetails.Select(d=>new ListOfItem()
                    {
                        Price = d.Price,

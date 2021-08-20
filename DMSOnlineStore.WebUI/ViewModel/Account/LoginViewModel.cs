@@ -9,7 +9,7 @@ namespace DMSOnlineStore.WebUI.ViewModel.Account
     public class LoginViewModel
     {
         [Required]
-        [EmailAddress]
+        [Display(Name = "Email or UserName")]
         public string Email { get; set; }
 
         [Required]

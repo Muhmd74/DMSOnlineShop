@@ -119,8 +119,7 @@ textarea {
     display: inline-block;
     padding: 3px;
     box-shadow: 2px 2px 20px black;
-    border-radius: var(--bs-gray);
-    margin: 1.5% 1% 0%1.5%;
+     margin: 1.5% 1% 0%1.5%;
      
   
     text-align: center;
@@ -173,3 +172,10 @@ textarea {
 }
 
 
+.textboxs {
+     background: transparent url(/images/css/input-text-8.jpg) repeat-x;
+     border: 1px solid #999;
+     outline: 0;
+     height: 25px;
+     width: 275px;
+ }
