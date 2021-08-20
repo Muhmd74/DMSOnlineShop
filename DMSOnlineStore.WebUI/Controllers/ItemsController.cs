@@ -26,13 +26,13 @@ namespace DMSOnlineStore.WebUI.Controllers
             _fileService = fileService;
 
         }
-
+        [HttpGet]
         public async Task<IActionResult> Index(string name)
         {
             var model = await _item.GetAll(name);
             return View(model);
         }
-
+        [HttpGet]
         public async Task<IActionResult> Search(string name)
         {
             ViewData["GetItem"] = name;
@@ -46,7 +46,7 @@ namespace DMSOnlineStore.WebUI.Controllers
             _toastNotification.AddSuccessToastMessage(" The operation was successfully ");
             return RedirectToAction(nameof(Index));
         }
-
+        [HttpGet]
         public async Task<IActionResult> Details(Guid id)
         {
 
@@ -68,10 +68,24 @@ namespace DMSOnlineStore.WebUI.Controllers
         {
 
             var viewModel = await _item.Get(id);
-            var model = await _item.Update(viewModel);
-            _toastNotification.AddSuccessToastMessage(" The operation was successfully ");
+            if (viewModel!=null)
+            {
+                if (!ModelState.IsValid)
+                {
+                    var model = await _item.Update(viewModel);
+                    _toastNotification.AddSuccessToastMessage(" The operation was successfully ");
 
-            return View("Create", viewModel);
+                    return RedirectToAction("Create");
+                }
+
+                ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+            }
+            else
+            {
+                return Json($"this Item NorFound ");
+            }
+            return View("Create");
+
         }
 
         public async Task<IActionResult> Create()

@@ -1,11 +1,12 @@
 ﻿using System.Reflection;
 using DMSOnlineStore.Core.Models;
 using DMSOnlineStore.Infrastructure.Data.ModelConfigurations;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DMSOnlineStore.Infrastructure.Data.Tools
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -13,8 +14,7 @@ namespace DMSOnlineStore.Infrastructure.Data.Tools
             base.OnConfiguring(optionsBuilder);
         }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
+         public DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Item> Items { get; set; }

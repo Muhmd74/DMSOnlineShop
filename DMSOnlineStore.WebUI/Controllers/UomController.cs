@@ -20,14 +20,15 @@ namespace DMSOnlineStore.WebUI.Controllers
             _uom = uom;
             _toastNotification = toastNotification;
         }
-
+        [HttpGet]
         public async Task<IActionResult> Index(string name)
         {
             var model =await _uom.GetAll(name);
             return View(model);
         }
+        [HttpGet]
+        public IActionResult Create()
 
-        public async Task<IActionResult> Create()
         {
             return View();
         }

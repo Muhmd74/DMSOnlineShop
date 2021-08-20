@@ -15,10 +15,10 @@ namespace DMSOnlineStore.Infrastructure.Data.ModelConfigurations
             builder.Property(x => x.Id)
                 .HasDefaultValueSql("NEWID()");
             //Order : User
-            builder.HasOne(d => d.User)
-                .WithMany(d => d.Orders)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.NoAction);
+            //builder.HasOne(d => d.User)
+            //    .WithMany(d => d.Orders)
+            //    .HasForeignKey(d => d.UserId)
+            //    .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

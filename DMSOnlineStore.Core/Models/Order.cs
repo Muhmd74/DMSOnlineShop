@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using DMSOnlineStore.Core.Enums;
+using Microsoft.AspNetCore.Identity;
 
 namespace DMSOnlineStore.Core.Models
 {
-   public class Order  
+   public class Order   
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -23,8 +24,8 @@ namespace DMSOnlineStore.Core.Models
         public decimal TaxValue { get; set; }
         public decimal Discount { get; set; }
         public decimal TotalPrice { get; set; }
-        public Guid UserId { get; set; }
-        public User User { get; set; }
+        //public Guid UserId { get; set; }
+        //public IdentityUser User { get; set; }
         public IEnumerable<OrderDetail> OrderDetails { get; set; }
     }
 }

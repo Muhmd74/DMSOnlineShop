@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DMSOnlineStore.WebUI.Repositories.CardHome;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DMSOnlineStore.WebUI.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
 
@@ -16,7 +18,8 @@ namespace DMSOnlineStore.WebUI.Controllers
         {
             _card = card;
         }
-
+        [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Index(string name)
         {
             var model =await _card.GetCards(  name);
