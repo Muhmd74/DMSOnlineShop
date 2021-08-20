@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 
 namespace DMSOnlineStore.Core.Models
 {
-   public class BaseEntity
+   public class ApplicationUser : IdentityUser
     {
-  
-        public Guid Id { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }

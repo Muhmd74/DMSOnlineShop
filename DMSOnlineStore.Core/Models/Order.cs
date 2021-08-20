@@ -24,8 +24,9 @@ namespace DMSOnlineStore.Core.Models
         public decimal TaxValue { get; set; }
         public decimal Discount { get; set; }
         public decimal TotalPrice { get; set; }
-        //public Guid UserId { get; set; }
-        //public IdentityUser User { get; set; }
+
+        public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
         public IEnumerable<OrderDetail> OrderDetails { get; set; }
     }
 }

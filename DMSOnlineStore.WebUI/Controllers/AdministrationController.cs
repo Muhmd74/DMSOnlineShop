@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DMSOnlineStore.Core.Models;
 using DMSOnlineStore.WebUI.ViewModel.Administration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -13,9 +14,9 @@ namespace DMSOnlineStore.WebUI.Controllers
     public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
@@ -180,7 +181,7 @@ namespace DMSOnlineStore.WebUI.Controllers
             {
                 var user = await _userManager.FindByIdAsync(model[i].UserId);
 
-                IdentityResult result = null;
+                IdentityResult result;
 
                 if (model[i].IsSelected && !(await _userManager.IsInRoleAsync(user, role.Name)))
                 {
@@ -199,8 +200,7 @@ namespace DMSOnlineStore.WebUI.Controllers
                 {
                     if (i < (model.Count - 1))
                         continue;
-                    else
-                        return RedirectToAction("EditRole", new { Id = roleId });
+                    return RedirectToAction("EditRole", new { Id = roleId });
                 }
             }
 

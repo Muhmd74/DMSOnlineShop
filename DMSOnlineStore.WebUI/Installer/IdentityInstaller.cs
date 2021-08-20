@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DMSOnlineStore.Core.Models;
 using DMSOnlineStore.Infrastructure.Data.Tools;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -13,14 +14,13 @@ namespace DMSOnlineStore.WebUI.Installer
     {
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.Configure<IdentityOptions>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole>
+            (options =>
             {
                 options.Password.RequiredLength = 10;
                 options.Password.RequiredUniqueChars = 3;
-                options.Password.RequireNonAlphanumeric = false;
-            });
+
+            }).AddEntityFrameworkStores<ApplicationDbContext>();
         }
     }
 }

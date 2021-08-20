@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DMSOnlineStore.Core.Models;
 using DMSOnlineStore.WebUI.ViewModel.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -12,10 +13,10 @@ namespace DMSOnlineStore.WebUI.Controllers
     
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -34,7 +35,7 @@ namespace DMSOnlineStore.WebUI.Controllers
             if (ModelState.IsValid)
             {
 
-                var user = new IdentityUser
+                var user = new ApplicationUser()
                 {
                     UserName = model.Email,
                     Email = model.Email

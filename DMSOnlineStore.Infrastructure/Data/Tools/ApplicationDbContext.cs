@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DMSOnlineStore.Infrastructure.Data.Tools
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

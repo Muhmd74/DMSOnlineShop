@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DMSOnlineStore.WebUI.Repositories
 {
-    public class EfRepository<TModel> : IAsyncRepository<TModel> where TModel : BaseEntity
+    public class EfRepository<TModel> : IAsyncRepository<TModel> where TModel : class
     {
         private readonly ApplicationDbContext _context;
          public EfRepository(ApplicationDbContext context, DbSet<TModel> entity)
@@ -19,7 +19,7 @@ namespace DMSOnlineStore.WebUI.Repositories
 
         public async Task<TModel> GetById(Guid id)
         {
-            var model = await _context.Set<TModel>().FirstOrDefaultAsync(d => d.Id == id);
+            var model = await _context.Set<TModel>().FirstOrDefaultAsync();
             return model;
         }
 
@@ -72,7 +72,7 @@ namespace DMSOnlineStore.WebUI.Repositories
 
         public async Task<bool> Delete(Guid id)
         {
-            var model=await _context.Set<TModel>().FirstOrDefaultAsync(d=>d.Id==id);
+            var model=await _context.Set<TModel>().FirstOrDefaultAsync();
             if (model!=null)
             {
                 _context.Remove(model);

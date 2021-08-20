@@ -72,7 +72,7 @@ namespace DMSOnlineStore.WebUI.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    var model = await _item.Update(viewModel);
+                    await _item.Update(viewModel);
                     _toastNotification.AddSuccessToastMessage(" The operation was successfully ");
 
                     return RedirectToAction("Create");
