@@ -52,8 +52,13 @@ namespace DMSOnlineStore.WebUI.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var mode = await _item.DeleteOrRestore(id);
-            _toastNotification.AddSuccessToastMessage(" The operation was successfully ");
-            return RedirectToAction(nameof(Index));
+            if (mode)
+            {
+                _toastNotification.AddSuccessToastMessage(" The operation was successfully ");
+                return RedirectToAction(nameof(Index));
+            }
+            return Json($"this Item Can't Remove ");
+
         }
         [HttpGet]
         public async Task<IActionResult> Details(Guid id)
@@ -71,7 +76,7 @@ namespace DMSOnlineStore.WebUI.Controllers
             {
                 UnitOfMeasures = await _uom.GetAll("")
             };
-            return View("Create", viewModel);
+            return View("EditItem",viewModel);
         }
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -86,7 +91,7 @@ namespace DMSOnlineStore.WebUI.Controllers
                     await _item.Update(viewModel);
                     _toastNotification.AddSuccessToastMessage(" The operation was successfully ");
 
-                    return RedirectToAction("Create");
+                    return RedirectToAction("Index");
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
@@ -95,8 +100,7 @@ namespace DMSOnlineStore.WebUI.Controllers
             {
                 return Json($"this Item NorFound ");
             }
-            return View("Create");
-
+            return RedirectToAction("Update");
         }
         [HttpGet]
         [Authorize(Roles = "Admin")]

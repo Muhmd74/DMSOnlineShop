@@ -53,15 +53,27 @@ namespace DMSOnlineStore.WebUI.Controllers
 
         public async Task<IActionResult> DeleteOrRestore(Guid id)
         {
-            await _uom.DeleteOrRestore(id);
-            _toastNotification.AddSuccessToastMessage(" The operation was successfully ");
-            return RedirectToAction(nameof(Index));
+            var model = await _uom.DeleteOrRestore(id);
+
+            if (model != null)
+            {
+                _toastNotification.AddSuccessToastMessage(" The operation was successfully ");
+                return RedirectToAction(nameof(Index));
+            }
+            return Json($"this Item Can't Remove ");
+
 
         }
         [HttpPost]
         public async Task<IActionResult> Update(Guid id)
         {
             var viewModel = await _uom.Get(id);
+            if (!ModelState.IsValid)
+            {
+
+                return View("Index");
+            }
+
             await _uom.Update(viewModel);
             return View("Create", viewModel);
         }

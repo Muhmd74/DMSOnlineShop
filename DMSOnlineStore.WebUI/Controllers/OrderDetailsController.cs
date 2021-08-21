@@ -23,8 +23,7 @@ namespace DMSOnlineStore.WebUI.Controllers
             _toastNotification = toastNotification;
         }
         [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> Index()
+         public async Task<IActionResult> Index()
         {
             var model = await _order.GetOrders();
 

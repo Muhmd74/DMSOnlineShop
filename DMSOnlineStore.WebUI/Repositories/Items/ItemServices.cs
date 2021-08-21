@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DMSOnlineStore.WebUI.Repositories.Items
 {
-    public class ItemServices : IItem,IDisposable
+    public class ItemServices : IItem, IDisposable
     {
         private readonly ApplicationDbContext _context;
 
@@ -21,7 +21,7 @@ namespace DMSOnlineStore.WebUI.Repositories.Items
         {
             try
             {
-              var resylt=  await _context.Items.AddAsync(new Item()
+                var resylt = await _context.Items.AddAsync(new Item()
                 {
                     Name = model.Name,
                     Created = DateTime.Now,
@@ -30,7 +30,7 @@ namespace DMSOnlineStore.WebUI.Repositories.Items
                     Price = model.Price,
                     Quantity = model.Quantity,
                     UnitOfMeasureId = model.UnitOfMeasureId,
-                    Vat =model.Vat
+                    Vat = model.Vat
                 });
                 await _context.SaveChangesAsync();
                 return new ItemFormViewModel();
@@ -109,7 +109,7 @@ namespace DMSOnlineStore.WebUI.Repositories.Items
         {
             return await _context.Items.Include(d => d.UnitOfMeasure)
                 .OrderByDescending(d => d.Created)
-                .Where(d => d.Name.Contains(name)|| name==null)
+                .Where(d => d.Name.Contains(name) || name == null)
                 .Select(d => new ItemsViewModel()
                 {
                     Id = d.Id,

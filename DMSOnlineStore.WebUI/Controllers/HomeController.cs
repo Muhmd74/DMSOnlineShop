@@ -8,8 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace DMSOnlineStore.WebUI.Controllers
 {
-    [Authorize]
-    public class HomeController : Controller
+     public class HomeController : Controller
     {
 
         private readonly ICard _card;

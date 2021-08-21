@@ -12,14 +12,16 @@ using NToastNotify;
 
 namespace DMSOnlineStore.WebUI.Controllers
 {
-     public class AdministrationController : Controller
+    [AllowAnonymous]
+    public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IToastNotification _toastNotification;
 
 
-        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager, IToastNotification toastNotification)
+        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager,
+            IToastNotification toastNotification)
         {
             _roleManager = roleManager;
             _userManager = userManager;
@@ -27,14 +29,13 @@ namespace DMSOnlineStore.WebUI.Controllers
         }
 
         [HttpGet]
-         public IActionResult CreateRole()
+        public IActionResult CreateRole()
         {
             return View();
         }
 
         [HttpPost]
-        [AllowAnonymous]
-         public async Task<IActionResult> CreateRole(CreateRoleViewModel model)
+        public async Task<IActionResult> CreateRole(CreateRoleViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -62,14 +63,15 @@ namespace DMSOnlineStore.WebUI.Controllers
         }
 
         [HttpGet]
-         public async Task<IActionResult> ListRoles()
+        [AllowAnonymous]
+        public async Task<IActionResult> ListRoles()
         {
             var roles = await _roleManager.Roles.ToListAsync();
             return View(roles);
         }
 
         [HttpGet]
-         public async Task<IActionResult> EditRole(string id)
+        public async Task<IActionResult> EditRole(string id)
         {
 
             var role = await _roleManager.FindByIdAsync(id);
@@ -93,6 +95,7 @@ namespace DMSOnlineStore.WebUI.Controllers
                     model.Users.Add(user.UserName);
                 }
             }
+
             _toastNotification.AddSuccessToastMessage("Role Updated was successfully ");
 
             return View(model);
@@ -100,7 +103,8 @@ namespace DMSOnlineStore.WebUI.Controllers
 
 
         [HttpPost]
-         public async Task<IActionResult> EditRole(EditRoleViewModel model)
+        [AllowAnonymous]
+        public async Task<IActionResult> EditRole(EditRoleViewModel model)
         {
             var role = await _roleManager.FindByIdAsync(model.Id);
 
@@ -113,7 +117,6 @@ namespace DMSOnlineStore.WebUI.Controllers
             {
                 role.Name = model.RoleName;
 
-                // Update the Role using UpdateAsync
                 var result = await _roleManager.UpdateAsync(role);
 
                 if (result.Succeeded)
@@ -133,7 +136,7 @@ namespace DMSOnlineStore.WebUI.Controllers
         }
 
         [HttpGet]
-         public async Task<IActionResult> EditUsersInRole(string roleId)
+        public async Task<IActionResult> EditUsersInRole(string roleId)
         {
             ViewBag.roleId = roleId;
 
@@ -169,8 +172,9 @@ namespace DMSOnlineStore.WebUI.Controllers
 
             return View(model);
         }
+
         [HttpPost]
-         public async Task<IActionResult> EditUsersInRole(List<UserRoleViewModel> model, string roleId)
+        public async Task<IActionResult> EditUsersInRole(List<UserRoleViewModel> model, string roleId)
         {
             var role = await _roleManager.FindByIdAsync(roleId);
 
@@ -205,18 +209,107 @@ namespace DMSOnlineStore.WebUI.Controllers
                         continue;
                     _toastNotification.AddSuccessToastMessage("Role Updated was successfully ");
 
-                    return RedirectToAction("EditRole", new { Id = roleId });
+                    return RedirectToAction("EditRole", new {Id = roleId});
                 }
             }
+
             _toastNotification.AddSuccessToastMessage("Role Updated was successfully ");
 
-            return RedirectToAction("EditRole", new { Id = roleId });
+            return RedirectToAction("EditRole", new {Id = roleId});
         }
+
         [HttpGet]
-         public IActionResult ListUsers()
+        public IActionResult ListUsers()
         {
             var users = _userManager.Users;
             return View(users);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {id} cannot be found";
+                return View("NotFound");
+            }
+
+             var userRoles = await _userManager.GetRolesAsync(user);
+
+            var model = new EditUserViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Roles = userRoles
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditUser(EditUserViewModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.Id);
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {model.Id} cannot be found";
+                return View("NotFound");
+            }
+            else
+            {
+                user.Email = model.Email;
+                user.UserName = model.UserName;
+              user.  FirstName = user.FirstName;
+                    user.LastName = user.LastName;
+
+                var result = await _userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ListUsers");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                return View(model);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {id} cannot be found";
+                return View("NotFound");
+            }
+            else
+            {
+                var result = await _userManager.DeleteAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ListUsers");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                return View("ListUsers");
+            }
         }
     }
 }
