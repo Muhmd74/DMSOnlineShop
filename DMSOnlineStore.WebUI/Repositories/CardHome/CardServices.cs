@@ -19,7 +19,7 @@ namespace DMSOnlineStore.WebUI.Repositories.CardHome
 
         public async Task<IEnumerable<CardHomeViewModel>> GetCards(string name)
         {
-            return await _context.Items
+            var model= await _context.Items
                 .OrderByDescending(d => d.Created)
                 .Where(d => d.Name.Contains(name) || name==null   && d.IsDeleted == false )
 
@@ -33,6 +33,7 @@ namespace DMSOnlineStore.WebUI.Repositories.CardHome
                     ImageUrl = d.ImageUrl
                 })
                 .ToListAsync();
+            return model;
         }
 
        

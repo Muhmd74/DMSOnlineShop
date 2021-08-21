@@ -11,7 +11,7 @@ using NToastNotify;
 
 namespace DMSOnlineStore.WebUI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class UomController : Controller
     {
         private readonly IUom _uom;

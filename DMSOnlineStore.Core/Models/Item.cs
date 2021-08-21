@@ -18,7 +18,7 @@ namespace DMSOnlineStore.Core.Models
         public decimal Price { get; set; }
         public float Discount { get; set; }
         public decimal Vat { get; set; }
-        public string ImageUrl { get; set; }
+        public byte[] ImageUrl { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
         public Guid UnitOfMeasureId { get; set; }

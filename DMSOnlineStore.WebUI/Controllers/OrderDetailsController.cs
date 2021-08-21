@@ -3,13 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DMSOnlineStore.Core.Enums;
 using DMSOnlineStore.WebUI.Repositories.OrderDetails;
 using Microsoft.AspNetCore.Authorization;
 using NToastNotify;
 
 namespace DMSOnlineStore.WebUI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
+
     public class OrderDetailsController : Controller
     {
         private readonly IOrderDetails _order;
@@ -41,9 +43,10 @@ namespace DMSOnlineStore.WebUI.Controllers
             return View(model);
         }
 
-        public IActionResult ChangeStatue(Guid id, int statue)
+        public async Task<IActionResult> ChangeStatue(Guid id, StatueType statue)
         {
-            throw new NotImplementedException();
+            var model =await _order.ChangeStatueOrder(id, statue);
+            return RedirectToAction("Index");
         }
     }
 }

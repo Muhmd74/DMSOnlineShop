@@ -88,6 +88,25 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "13572456-6511-47af-9774-d1055004ce52",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "88ad8133-3fe9-48d0-b77a-444e64867606",
+                            Email = "admin",
+                            EmailConfirmed = true,
+                            FirstName = "Admin",
+                            LastName = "Admin",
+                            LockoutEnabled = false,
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOj5uGXRAyggmsYldBOvX+R1sXy7ZmDqb5HI7o2qK7ElOdvn6yJa58v/kEKs4Z1O8A==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "d6b4b4c7-b8b5-437f-af22-86dfaa2a0ae1",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("DMSOnlineStore.Core.Models.Item", b =>
@@ -107,8 +126,8 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                     b.Property<float>("Discount")
                         .HasColumnType("real");
 
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("ImageUrl")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -280,6 +299,15 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "e1d3e5a7-3d6f-4831-8077-8eb576274648",
+                            ConcurrencyStamp = "e1d3e5a7-3d6f-4831-8077-8eb576274648",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -365,6 +393,13 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "13572456-6511-47af-9774-d1055004ce52",
+                            RoleId = "e1d3e5a7-3d6f-4831-8077-8eb576274648"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

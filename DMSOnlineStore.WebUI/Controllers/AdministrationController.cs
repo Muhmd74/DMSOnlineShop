@@ -12,7 +12,7 @@ using NToastNotify;
 
 namespace DMSOnlineStore.WebUI.Controllers
 {
-    public class AdministrationController : Controller
+     public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -27,15 +27,14 @@ namespace DMSOnlineStore.WebUI.Controllers
         }
 
         [HttpGet]
-        [Authorize]
-        public IActionResult CreateRole()
+         public IActionResult CreateRole()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> CreateRole(CreateRoleViewModel model)
+        [AllowAnonymous]
+         public async Task<IActionResult> CreateRole(CreateRoleViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -63,16 +62,14 @@ namespace DMSOnlineStore.WebUI.Controllers
         }
 
         [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> ListRoles()
+         public async Task<IActionResult> ListRoles()
         {
             var roles = await _roleManager.Roles.ToListAsync();
             return View(roles);
         }
 
         [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> EditRole(string id)
+         public async Task<IActionResult> EditRole(string id)
         {
 
             var role = await _roleManager.FindByIdAsync(id);
@@ -103,8 +100,7 @@ namespace DMSOnlineStore.WebUI.Controllers
 
 
         [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> EditRole(EditRoleViewModel model)
+         public async Task<IActionResult> EditRole(EditRoleViewModel model)
         {
             var role = await _roleManager.FindByIdAsync(model.Id);
 
@@ -137,8 +133,7 @@ namespace DMSOnlineStore.WebUI.Controllers
         }
 
         [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> EditUsersInRole(string roleId)
+         public async Task<IActionResult> EditUsersInRole(string roleId)
         {
             ViewBag.roleId = roleId;
 
@@ -175,8 +170,7 @@ namespace DMSOnlineStore.WebUI.Controllers
             return View(model);
         }
         [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> EditUsersInRole(List<UserRoleViewModel> model, string roleId)
+         public async Task<IActionResult> EditUsersInRole(List<UserRoleViewModel> model, string roleId)
         {
             var role = await _roleManager.FindByIdAsync(roleId);
 
@@ -219,8 +213,7 @@ namespace DMSOnlineStore.WebUI.Controllers
             return RedirectToAction("EditRole", new { Id = roleId });
         }
         [HttpGet]
-        [Authorize]
-        public IActionResult ListUsers()
+         public IActionResult ListUsers()
         {
             var users = _userManager.Users;
             return View(users);

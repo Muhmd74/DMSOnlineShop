@@ -23,7 +23,7 @@ namespace DMSOnlineStore.WebUI.ViewModel.ItemsViewModel
         [Display(Name = "Tax")]
         public decimal Vat { get; set; }
         [Display(Name = "Image")]
-        public string ImageUrl { get; set; }
+        public byte[] ImageUrl { get; set; }
 
           [Display(Name = "UOM")]
         public Guid UnitOfMeasureId { get; set; }

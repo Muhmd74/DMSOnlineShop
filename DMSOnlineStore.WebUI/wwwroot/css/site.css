@@ -179,3 +179,10 @@ textarea {
      height: 25px;
      width: 275px;
  }
+.poster {
+    background-size: 100%;
+    width: 40%;
+    height: 30%
+
+
+}

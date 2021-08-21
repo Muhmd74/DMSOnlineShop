@@ -1,4 +1,5 @@
-﻿@model IEnumerable<OrderTableViewModel>
+﻿@using DMSOnlineStore.Core.Enums
+@model IEnumerable<OrderTableViewModel>
 @{
     ViewData["Title"] = "Orders";
 }
@@ -26,6 +27,7 @@ else
                 <th>Statue</th>
                 <th>TaxValue</th>
                 <th>Due Date</th>
+                <th>Action</th>
                
             </tr>
         </thead>
@@ -44,7 +46,18 @@ else
                     <td>@item.Statue</td>
                     <td>@item.TaxValue</td>
                     <td>@item.DueDate</td>
-                 
+                    <td>
+                    <a href="@Url.Action("ChangeStatue", "OrderDetails", new {id = item.Id , statue=3} )" class="btn btn-success">
+                        <i class="bi bi-cart"  ></i>
+
+                        In Deliver
+                    </a>
+                    <a href="@Url.Action("ChangeStatue", "OrderDetails", new {id = item.Id,statue=4})" class="btn btn-outline-secondary">
+                        <i class="bi bi-check"  ></i>
+
+                        Close
+                    </a>
+                   </td>
                 </tr>
             }
         </tbody>

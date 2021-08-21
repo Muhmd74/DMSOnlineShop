@@ -64,7 +64,7 @@
                 <span asp-validation-for="Description " class="text-danger"></span>
             </div>
             <div class="custom-file">
-                <input type="file" value="" class="custom-file-input" asp-for="ImageUrl" />
+                <input type="file" value="" class="custom-file-input" asp-for="ImageUrl" accept=".jpg,.png"/>
                 <label class="custom-file-label" asp-for="ImageUrl"> </label>
                 <span asp-validation-for="ImageUrl " class="text-danger"></span>
 
@@ -80,7 +80,7 @@
 
         </form>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-8">
         <div id="image-container" class="d-none">
             <img src="" alt="Image" class="img-thumbnail" />
         </div>
@@ -94,7 +94,7 @@
                 function () {
                     var selectedFile = $(this).val().split('\\').pop();
                     $(this).siblings('label').text(selectedFile);
-
+         
                     var imageContainer = $('#image-container');
                     var image = window.URL.createObjectURL(this.file[0]);
                     imageContainer.removeClass('d-none');
