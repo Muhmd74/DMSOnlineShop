@@ -7,6 +7,7 @@ using DMSOnlineStore.Core.Models;
 using DMSOnlineStore.WebUI.Repositories.CardHome;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using NToastNotify;
 
 namespace DMSOnlineStore.WebUI.Controllers
 {
@@ -15,10 +16,12 @@ namespace DMSOnlineStore.WebUI.Controllers
 
         private readonly ICard _card;
         private readonly UserManager<ApplicationUser> _userManager;
-        public HomeController(ICard card, UserManager<ApplicationUser> userManager)
+        private readonly IToastNotification _toastNotification;
+        public HomeController(ICard card, UserManager<ApplicationUser> userManager, IToastNotification toastNotification)
         {
             _card = card;
             _userManager = userManager;
+            _toastNotification = toastNotification;
         }
         [HttpGet]
         [AllowAnonymous]
@@ -35,6 +38,8 @@ namespace DMSOnlineStore.WebUI.Controllers
             var userId =  _userManager.GetUserId(HttpContext.User);
 
             var model = await _card.AddItemToCart(id,new Guid(userId));
+            _toastNotification.AddSuccessToastMessage(" Item Updated was successfully ");
+
             return RedirectToAction(nameof(Index));
         }
     }
