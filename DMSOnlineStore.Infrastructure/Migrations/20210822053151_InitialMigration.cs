@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DMSOnlineStore.Infrastructure.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -230,9 +230,13 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                     Id = table.Column<Guid>(nullable: false, defaultValueSql: "NEWID()"),
                     Quantity = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
+                    InCart = table.Column<bool>(nullable: false, defaultValue: true),
+                    DateTime = table.Column<DateTime>(nullable: false),
                     UnitOfMeasureId = table.Column<Guid>(nullable: false),
-                    OrderId = table.Column<Guid>(nullable: false),
-                    ItemId = table.Column<Guid>(nullable: false)
+                    OrderId = table.Column<Guid>(nullable: true),
+                    ItemId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false),
+                    UserId1 = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -252,6 +256,12 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                         column: x => x.UnitOfMeasureId,
                         principalTable: "UnitOfMeasures",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_OrderDetails_AspNetUsers_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
@@ -262,7 +272,7 @@ namespace DMSOnlineStore.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "13572456-6511-47af-9774-d1055004ce52", 0, "88ad8133-3fe9-48d0-b77a-444e64867606", "admin", true, "Admin", "Admin", false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEOj5uGXRAyggmsYldBOvX+R1sXy7ZmDqb5HI7o2qK7ElOdvn6yJa58v/kEKs4Z1O8A==", null, false, "d6b4b4c7-b8b5-437f-af22-86dfaa2a0ae1", false, "admin" });
+                values: new object[] { "13572456-6511-47af-9774-d1055004ce52", 0, "1bc31d3e-99cb-49c1-b572-545f6eef18d9", "admin", true, "Admin", "Admin", false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEJaKLCWG51AM2S3ATLwXOO0PwPj1DgYx5sulOLVEjh3n+ZTggz0Pkg7j6YMI7BLTdA==", null, false, "21301e60-f5f5-4437-b21f-9e00bfac0d21", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -333,6 +343,11 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                 name: "IX_OrderDetails_UnitOfMeasureId",
                 table: "OrderDetails",
                 column: "UnitOfMeasureId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_UserId1",
+                table: "OrderDetails",
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_UserId",

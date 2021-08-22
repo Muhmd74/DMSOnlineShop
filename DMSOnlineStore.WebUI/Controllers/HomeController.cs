@@ -38,7 +38,7 @@ namespace DMSOnlineStore.WebUI.Controllers
             var userId =  _userManager.GetUserId(HttpContext.User);
 
             var model = await _card.AddItemToCart(id,new Guid(userId));
-            _toastNotification.AddSuccessToastMessage(" Item Updated was successfully ");
+            _toastNotification.AddSuccessToastMessage(" add to cart was successfully ");
 
             return RedirectToAction(nameof(Index));
         }

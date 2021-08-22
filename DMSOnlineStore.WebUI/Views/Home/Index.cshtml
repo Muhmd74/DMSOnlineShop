@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<CardHomeViewModel>
+@inject SignInManager<ApplicationUser> SignInManager
 @{
     ViewData["Title"] = "Products";
 }
@@ -23,7 +24,7 @@
             <div class="card">
 
                 <div class="image">
-                    <img src="https://shopiwind.com/wp-content/uploads/2021/08/The-Noodley-Flashing-LED-Light-Up-Gloves-Product-Image-6.jpg">
+                    <img src="https://thealmanian.com/wp-content/uploads/2019/01/product_image_thumbnail_placeholder.png">
                 </div>
                 <h3 class="p-title">@card.Name</h3>
 
@@ -33,15 +34,30 @@
                 </div>
 
                 <p>@(card.Description.Length>25?$"{card.Description.Substring(0,25)}.." :card.Description)</p>
-                     <p>
 
-                         <form asp-controller="Home" asp-action="AddToCart" asp-route-id="@card.Id">
-                             <input type="submit" value="Add to cart" />
-                         </form>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <p>
+
+                        <form asp-controller="Home" asp-action="AddToCart" asp-route-id="@card.Id">
+                            <input type="submit" value="Add to cart" style="width: 100% ;"class="btn btn-outline-primary" />
+                        </form>
 
 
                     </p>
-             </div>
+                }
+                else
+                {
+                    <p>
+
+                        <form asp-controller="Account" asp-action="Login" asp-route-id="@card.Id">
+                            <input type="submit" value="Add to cart" style="width: 100% ; " class="btn btn-outline-primary"/>
+                        </form>
+
+
+                    </p>
+                }
+            </div>
 
         }
     </div>

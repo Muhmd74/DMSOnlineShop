@@ -8,6 +8,7 @@ using DMSOnlineStore.WebUI.Repositories.Order;
 using DMSOnlineStore.WebUI.ViewModel.OrderCreated;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using NToastNotify;
 
 namespace DMSOnlineStore.WebUI.Controllers
 {
@@ -15,11 +16,14 @@ namespace DMSOnlineStore.WebUI.Controllers
     {
         private readonly IOrder _order;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IToastNotification _toastNotification;
 
-        public OrderController(IOrder order, UserManager<ApplicationUser> userManager)
+
+        public OrderController(IOrder order, UserManager<ApplicationUser> userManager, IToastNotification toastNotification)
         {
             _order = order;
             _userManager = userManager;
+            _toastNotification = toastNotification;
         }
 
         [HttpGet]
@@ -35,7 +39,8 @@ namespace DMSOnlineStore.WebUI.Controllers
         {
             var userId = _userManager.GetUserId(HttpContext.User);
           await  _order.CreateOrder(model, new Guid(userId));
-            return RedirectToAction("Index");
+          _toastNotification.AddSuccessToastMessage(" order send was successfully ");
+            return RedirectToAction("Index","Home");
         }
     }
 }

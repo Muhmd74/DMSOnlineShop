@@ -94,16 +94,16 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                         {
                             Id = "13572456-6511-47af-9774-d1055004ce52",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9ceb8c5e-1ea6-4cf3-81a0-d0bd201a5487",
+                            ConcurrencyStamp = "1bc31d3e-99cb-49c1-b572-545f6eef18d9",
                             Email = "admin",
                             EmailConfirmed = true,
                             FirstName = "Admin",
                             LastName = "Admin",
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEApQ6/BNUaZavxgK7XWfr/kt9eVTjIc1ktBepXyHVdDoC5PAc40Uh4oMX6lFS9F/VA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJaKLCWG51AM2S3ATLwXOO0PwPj1DgYx5sulOLVEjh3n+ZTggz0Pkg7j6YMI7BLTdA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8019c4e9-42a1-4b03-83fb-5f6462445add",
+                            SecurityStamp = "21301e60-f5f5-4437-b21f-9e00bfac0d21",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
