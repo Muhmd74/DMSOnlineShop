@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DMSOnlineStore.Infrastructure.Data.ModelConfigurations
 {
-  public  class OrderDetailConfig : IEntityTypeConfiguration<OrderDetail>
+    public class OrderDetailConfig : IEntityTypeConfiguration<OrderDetail>
     {
         public void Configure(EntityTypeBuilder<OrderDetail> builder)
         {
@@ -27,9 +27,16 @@ namespace DMSOnlineStore.Infrastructure.Data.ModelConfigurations
             builder.HasOne(d => d.Order)
                 .WithMany(d => d.OrderDetails)
                 .HasForeignKey(d => d.OrderId)
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.NoAction);
-
-
+            //OrderDetail : User
+            builder.HasOne(d => d.Order)
+                .WithMany(d => d.OrderDetails)
+                .HasForeignKey(d => d.OrderId)
+                .OnDelete(DeleteBehavior.NoAction);
+            //InCart
+            builder.Property(d => d.InCart)
+                .HasDefaultValue(true);
         }
     }
 }

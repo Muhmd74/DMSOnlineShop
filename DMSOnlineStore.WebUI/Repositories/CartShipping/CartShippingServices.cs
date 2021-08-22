@@ -17,9 +17,16 @@ namespace DMSOnlineStore.WebUI.Repositories.CartShipping
             _context = context;
         }
 
-        public async Task<IEnumerable<CartShippingViewModel>> CartItems(Guid userId)
+        public  async Task<IEnumerable<CartShippingViewModel>> CartItems(Guid userId)
         {
-            var model = await _context.OrderDetails.Select(d => new CartShippingViewModel()
+            var model = await  _context.OrderDetails
+                .Include(d=>d.Item)
+                .OrderByDescending(d=>d.DateTime)
+                .Include(d=>d.UnitOfMeasure)
+                .Where(d=>d.InCart==true
+                &&d.UserId==userId
+                )
+                .Select(d => new CartShippingViewModel()
             {
                 Name = d.Item.Name,
                 Discount = d.Item.Discount,
@@ -27,7 +34,9 @@ namespace DMSOnlineStore.WebUI.Repositories.CartShipping
                 Image = d.Item.ImageUrl,
                 ItemId = d.ItemId,
                 Tax = d.Item.Vat,
-                Price = d.Item.Price
+                Price = d.Item.Price,
+                OrderDetailsId = d.Id,
+                Uom=d.UnitOfMeasure.Name
             }).ToListAsync();
             if (model.Any())
             {

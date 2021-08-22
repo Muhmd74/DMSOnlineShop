@@ -4,14 +4,16 @@ using DMSOnlineStore.Infrastructure.Data.Tools;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DMSOnlineStore.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210821221936_OrderDetailsStatue")]
+    partial class OrderDetailsStatue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,16 +96,16 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                         {
                             Id = "13572456-6511-47af-9774-d1055004ce52",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9ceb8c5e-1ea6-4cf3-81a0-d0bd201a5487",
+                            ConcurrencyStamp = "f82ea23e-406f-4638-80c3-ed4e297fe62c",
                             Email = "admin",
                             EmailConfirmed = true,
                             FirstName = "Admin",
                             LastName = "Admin",
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEApQ6/BNUaZavxgK7XWfr/kt9eVTjIc1ktBepXyHVdDoC5PAc40Uh4oMX6lFS9F/VA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOc3T6WrcZUdbtluWyKqPMbsDjH4NzA7kWkTIw5bLVnmKNPqvSGk0KvElBlb2ANN0A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8019c4e9-42a1-4b03-83fb-5f6462445add",
+                            SecurityStamp = "ed44b638-6883-4303-8dee-8cbcd4e0a4c7",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -218,18 +220,13 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
 
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("InCart")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
+                        .HasColumnType("bit");
 
                     b.Property<Guid>("ItemId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("OrderId")
+                    b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Price")
@@ -241,12 +238,6 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                     b.Property<Guid>("UnitOfMeasureId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ItemId");
@@ -254,8 +245,6 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                     b.HasIndex("OrderId");
 
                     b.HasIndex("UnitOfMeasureId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("OrderDetails");
                 });
@@ -465,17 +454,14 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                     b.HasOne("DMSOnlineStore.Core.Models.Order", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("DMSOnlineStore.Core.Models.UnitOfMeasure", "UnitOfMeasure")
                         .WithMany("OrderDetails")
                         .HasForeignKey("UnitOfMeasureId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.HasOne("DMSOnlineStore.Core.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

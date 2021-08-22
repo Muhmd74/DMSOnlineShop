@@ -3,18 +3,18 @@
     ViewData["Title"] = "Products";
 }
 
-<h2 style="text-align: center " >DMS Store</h2>
-<hr style="text-align: center "  />
- 
+<h2 style="text-align: center ">DMS Store</h2>
+<hr style="text-align: center " />
+
 <div style="margin-left: 70%;display: inline-block">
     @using (Html.BeginForm("Index", "Home", FormMethod.Get))
     {
 
 
-        @Html.TextBox("name") <input  type="submit" value="Search " />
+        @Html.TextBox("name") <input type="submit" value="Search " />
     }
 </div>
-<hr/>
+<hr />
 <div class="card-content">
     <div class="card-items">
         @foreach (var card in Model)
@@ -26,18 +26,22 @@
                     <img src="https://shopiwind.com/wp-content/uploads/2021/08/The-Noodley-Flashing-LED-Light-Up-Gloves-Product-Image-6.jpg">
                 </div>
                 <h3 class="p-title">@card.Name</h3>
-         
-           <div>
-               <p class="price">$ @card.Price </p>
-               @*<p class="price-di">$ @card.Discount</p>*@
-           </div>
-            
+
+                <div>
+                    <p class="price">$ @card.Price </p>
+                    @*<p class="price-di">$ @card.Discount</p>*@
+                </div>
+
                 <p>@(card.Description.Length>25?$"{card.Description.Substring(0,25)}.." :card.Description)</p>
-                <p><button class=".add-to-cart">
-    <i class="bi bi-cart2" style="margin-right: 3px"></i>
-                    Add to Cart
-</button></p>
-            </div>
+                     <p>
+
+                         <form asp-controller="Home" asp-action="AddToCart" asp-route-id="@card.Id">
+                             <input type="submit" value="Приемам" />
+                         </form>
+
+
+                    </p>
+             </div>
 
         }
     </div>

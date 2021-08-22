@@ -38,15 +38,7 @@ namespace DMSOnlineStore.WebUI.Controllers
             var model = await _item.GetAll(name);
             return View(model);
         }
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
-
-        public async Task<IActionResult> Search(string name)
-        {
-            ViewData["GetItem"] = name;
-            var model = await _item.Filter(name);
-            return View("Index", model);
-        }
+       
         [Authorize(Roles = "Admin")]
 
         public async Task<IActionResult> Delete(Guid id)

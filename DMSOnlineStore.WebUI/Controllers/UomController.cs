@@ -28,6 +28,7 @@ namespace DMSOnlineStore.WebUI.Controllers
             var model = await _uom.GetAll(name);
             return View(model);
         }
+ 
         [HttpGet]
         public IActionResult Create()
 
@@ -64,16 +65,16 @@ namespace DMSOnlineStore.WebUI.Controllers
 
 
         }
+
+        public  IActionResult  Update()
+        {
+            return View("Create");
+        }
+
         [HttpPost]
         public async Task<IActionResult> Update(Guid id)
         {
             var viewModel = await _uom.Get(id);
-            if (!ModelState.IsValid)
-            {
-
-                return View("Index");
-            }
-
             await _uom.Update(viewModel);
             return View("Create", viewModel);
         }

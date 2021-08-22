@@ -4,14 +4,16 @@ using DMSOnlineStore.Infrastructure.Data.Tools;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DMSOnlineStore.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210822013144_CreateUserInOrder")]
+    partial class CreateUserInOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,16 +96,16 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                         {
                             Id = "13572456-6511-47af-9774-d1055004ce52",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9ceb8c5e-1ea6-4cf3-81a0-d0bd201a5487",
+                            ConcurrencyStamp = "cf773851-4070-41d9-9808-099258d561b4",
                             Email = "admin",
                             EmailConfirmed = true,
                             FirstName = "Admin",
                             LastName = "Admin",
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEApQ6/BNUaZavxgK7XWfr/kt9eVTjIc1ktBepXyHVdDoC5PAc40Uh4oMX6lFS9F/VA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDwfxizKdAlCmx8CzyQURXmfgP5pBCYnlLjzvcm8yrT4fmmM28hEylzGGBS3I9EzHg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8019c4e9-42a1-4b03-83fb-5f6462445add",
+                            SecurityStamp = "5869fda0-4811-461d-9b3f-41c4392c3af0",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -217,9 +219,6 @@ namespace DMSOnlineStore.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
-
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
 
                     b.Property<bool>("InCart")
                         .ValueGeneratedOnAdd()

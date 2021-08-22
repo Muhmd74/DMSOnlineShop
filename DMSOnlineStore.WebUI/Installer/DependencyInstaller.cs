@@ -1,7 +1,7 @@
 ﻿using System;
 using DMSOnlineStore.WebUI.FileService;
-using DMSOnlineStore.WebUI.Repositories.CardDetails;
-using DMSOnlineStore.WebUI.Repositories.CardHome;
+ using DMSOnlineStore.WebUI.Repositories.CardHome;
+using DMSOnlineStore.WebUI.Repositories.CartShipping;
 using DMSOnlineStore.WebUI.Repositories.Items;
 using DMSOnlineStore.WebUI.Repositories.OrderDetails;
 using DMSOnlineStore.WebUI.Repositories.Uom;
@@ -17,8 +17,8 @@ namespace DMSOnlineStore.WebUI.Installer
             services.AddScoped<IUom, UomServices>();
             services.AddScoped<IItem, ItemServices>();
             services.AddScoped<ICard, CardServices>();
-            services.AddScoped<ICardDetails, CardDetailsServices>();
-            services.AddScoped<IOrderDetails, OrderDetailsServices>();
+             services.AddScoped<IOrderDetails, OrderDetailsServices>();
+            services.AddScoped<ICartShipping, CartShippingServices>();
             //File
             services.AddScoped<FileService.FileService>();
             services.AddScoped<UploadCore>();
