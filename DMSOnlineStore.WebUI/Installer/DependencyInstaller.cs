@@ -3,6 +3,7 @@ using DMSOnlineStore.WebUI.FileService;
  using DMSOnlineStore.WebUI.Repositories.CardHome;
 using DMSOnlineStore.WebUI.Repositories.CartShipping;
 using DMSOnlineStore.WebUI.Repositories.Items;
+using DMSOnlineStore.WebUI.Repositories.Order;
 using DMSOnlineStore.WebUI.Repositories.OrderDetails;
 using DMSOnlineStore.WebUI.Repositories.Uom;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +20,7 @@ namespace DMSOnlineStore.WebUI.Installer
             services.AddScoped<ICard, CardServices>();
              services.AddScoped<IOrderDetails, OrderDetailsServices>();
             services.AddScoped<ICartShipping, CartShippingServices>();
+            services.AddScoped<IOrder, OrderServices>();
             //File
             services.AddScoped<FileService.FileService>();
             services.AddScoped<UploadCore>();

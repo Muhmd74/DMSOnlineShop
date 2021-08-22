@@ -75,10 +75,10 @@
 
 
                                             <form class="btn btn-outline-danger" style="width: auto"
-                                                  asp-controller="CartShipping" asp-action="Remove" asp-route-id="@item.OrderDetailsId">
+                                                  asp-controller="CartShipping" asp-action="Remove" asp-route-id="@item.OrderDetailsId" >
                                                 <input type="submit" value="Remove" />
                                             </form>
-                                             
+                          
                                         </div>
                                         <p class="mb-0"><span><strong id="summary">@item.Price</strong></span></p>
                                     </div>
@@ -145,12 +145,14 @@
                                     <p class="mb-0">(including VAT)</p>
                                 </strong>
                             </div>
-                            <span><strong>$53.98</strong></span>
+                            <span><strong>$@Model.Sum(d=>d.Price)</strong></span>
                         </li>
                     </ul>
-
-                    <button type="button" class="btn btn-primary btn-block">go to checkout</button>
-
+                    <a class="btn btn-primary" style="width:100%"
+                       asp-controller="Order" asp-action="Index">
+                       go to checkout
+                    </a>
+ 
                 </div>
             </div>
             <!-- Card -->

@@ -23,7 +23,7 @@ namespace DMSOnlineStore.WebUI.Repositories.CartShipping
                 .Include(d=>d.Item)
                 .OrderByDescending(d=>d.DateTime)
                 .Include(d=>d.UnitOfMeasure)
-                .Where(d=>d.InCart==true
+                .Where(d=>d.InCart
                 &&d.UserId==userId
                 )
                 .Select(d => new CartShippingViewModel()
