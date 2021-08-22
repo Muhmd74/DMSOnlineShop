@@ -3,10 +3,9 @@
 
     public enum StatueType
     {
-        Cart = 1,
-        Open = 2,
-        InDelivery=3,
-        Close = 4
+        InDelivery = 1,
+        Close = 2,
+        
 
     }
 

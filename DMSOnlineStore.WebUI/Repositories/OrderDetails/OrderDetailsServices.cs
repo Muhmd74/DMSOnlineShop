@@ -24,7 +24,6 @@ namespace DMSOnlineStore.WebUI.Repositories.OrderDetails
             return await _context.Orders
                  .Include(d => d.User)
                  .OrderByDescending(d => d.OrderDate)
-                 .Where(d => d.Statue != StatueType.Cart)
                  .Select(d => new OrderTableViewModel()
                  {
                      Discount = d.Discount,

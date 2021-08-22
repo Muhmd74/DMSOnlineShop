@@ -47,12 +47,12 @@ else
                     <td>@item.TaxValue</td>
                     <td>@item.DueDate</td>
                     <td>
-                    <a href="@Url.Action("ChangeStatue", "OrderDetails", new {id = item.Id , statue=3} )" class="btn btn-success">
+                    <a href="@Url.Action("ChangeStatue", "OrderDetails", new {id = item.Id , statue=1} )" class="btn btn-success">
                         <i class="bi bi-cart"  ></i>
 
                         In Deliver
                     </a>
-                    <a href="@Url.Action("ChangeStatue", "OrderDetails", new {id = item.Id,statue=4})" class="btn btn-outline-secondary">
+                    <a href="@Url.Action("ChangeStatue", "OrderDetails", new {id = item.Id,statue=2})" class="btn btn-outline-secondary">
                         <i class="bi bi-check"  ></i>
 
                         Close
